@@ -15,6 +15,7 @@ function ArrowIcon() {
   )
 }
 
+// TODO: add links with icons to LI / RSS / GH / X
 export default function Footer() {
   return (
     <footer className="mb-16">
