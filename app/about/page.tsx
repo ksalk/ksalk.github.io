@@ -15,7 +15,7 @@ export default function Page() {
         {`My name is Konrad Sałkowski, I live in Warsaw PL.`}
       </p>
       <p className="mb-4">
-        {`I'm a software developer that dabbles with coding since 2010. I specialize in .NET technologies, but I'm always open to make use of any tool/technology that will help complete set goal.`}
+        {`I'm a software developer that dabbles with coding since 2010. I specialize in .NET technologies, building APIs and backend systems, but I'm always open to make use of any technology that will help achieve set goal.`}
       </p>
     </section>
   )
