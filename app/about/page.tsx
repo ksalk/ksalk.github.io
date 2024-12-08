@@ -1,16 +1,32 @@
-import { BlogPosts } from 'app/components/posts'
+import Image from 'next/image'
 
 export const metadata = {
   title: 'About me',
   description: 'Bio.',
 }
 
-export default function Page() {
+export const imageData = {
+  src: '/images/me.jpg',
+  title: 'me',
+  width: 150,
+  height: 150
+}
+
+export default function Page() {  
   return (
     <section>
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
         about me
       </h1>
+      <p>
+        <Image
+          src={imageData.src}
+          alt={imageData.title}
+          width={imageData.width}
+          height={imageData.height}
+          className="rounded-full m-3"
+        />
+      </p>
       <p className="mb-4">
         {`My name is Konrad Sałkowski, I live in Warsaw PL.`}
       </p>
