@@ -5,14 +5,16 @@ export const metadata = {
   description: 'Bio.',
 }
 
-export const imageData = {
-  src: '/images/me.jpg',
-  title: 'me',
-  width: 150,
-  height: 150
-}
 
-export default function Page() {  
+
+export default function Page() {
+  const imageData = {
+    src: '/images/me.jpg',
+    title: 'me',
+    width: 150,
+    height: 150,
+  };
+
   return (
     <section>
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
