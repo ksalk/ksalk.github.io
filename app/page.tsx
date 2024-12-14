@@ -9,9 +9,9 @@ export default function Page() {
       <p className="mb-4">
         {`I like to build stuff in dotnet. Check out my ramblings below.`}
       </p>
-      <div className="my-8">
+      {/* <div className="my-8">
         <BlogPosts />
-      </div>
+      </div> */}
     </section>
   )
 }

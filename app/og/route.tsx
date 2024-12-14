@@ -3,8 +3,6 @@ import { ImageResponse } from 'next/og'
 export function GET(request: Request) {
   let url = new URL(request.url)
   let title = url.searchParams.get('title') || 'image'
-  let width = url.searchParams.get('width') || 1200
-  let height = url.searchParams.get('height') || 630
 
   return new ImageResponse(
     (
