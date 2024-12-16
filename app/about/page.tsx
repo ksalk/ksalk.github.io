@@ -5,8 +5,6 @@ export const metadata = {
   description: 'Bio.',
 }
 
-
-
 export default function Page() {
   const imageData = {
     src: '/images/me.jpg',
