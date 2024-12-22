@@ -4,7 +4,7 @@ export default function Page() {
   return (
     <section>
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-        hello there
+        average dotnet enjoyer
       </h1>
       <p className="mb-4">
         {`I like to build stuff in dotnet. Check out my ramblings below.`}
