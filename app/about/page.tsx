@@ -24,7 +24,7 @@ export default function Page() {
         {`If you want more info about my professional career, check out my `}
         <Link
           href="https://www.linkedin.com/in/konrad-salkowski/"
-          className='text-teal-400'>
+          className='text-neutral-400 dark:text-teal-400'>
           linkedin page
         </Link>
         {`.`}
