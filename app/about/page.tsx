@@ -25,7 +25,7 @@ export default function Page() {
         <Link
           href="https://www.linkedin.com/in/konrad-salkowski/"
           className='text-teal-400'>
-          LinkedIn page
+          linkedin page
         </Link>
         {`.`}
       </p>

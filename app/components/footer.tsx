@@ -41,7 +41,18 @@ export default function Footer() {
             <ArrowIcon />
             <p className="ml-2 h-7">github</p>
           </a>
-        </li>        
+        </li>
+        <li>
+          <a
+            className="flex items-center transition-all"
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://www.linkedin.com/in/konrad-salkowski/"
+          >
+            <ArrowIcon />
+            <p className="ml-2 h-7">linkedin</p>
+          </a>
+        </li>       
       </ul>
       <p className="mt-8 text-neutral-600 dark:text-neutral-300">
         © {new Date().getFullYear()} MIT Licensed
