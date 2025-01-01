@@ -11,7 +11,7 @@ export default function Page() {
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">blog</h1>
       {/* <BlogPosts /> */}
       <p className="mb-4">
-        {`Nothing here yet. Working on it.`}
+        {`Nothing here yet. I'm working on it.`}
       </p>
     </section>
   )
