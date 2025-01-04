@@ -17,7 +17,7 @@ export default function Page() {
       </p>
       <p className="mb-4">
         {`I'm a software engineer that dabbles with coding since 2010. I specialize in .NET tech stack, building APIs and backend systems, but I'm always open to learn and make use of any technology that will help me in my projects.
-        My main interests lie in software architecture, optimization and algorithms.`}
+        My main interests lie in software architecture, optimization and algorithms. I follow the latest developments in IT industry and try to keep up with the newest technologies and development philosophies.`}
       </p>
       <p className="mb-4">
         {`If you want more info about my professional career, check out my `}
