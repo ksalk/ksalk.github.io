@@ -13,7 +13,7 @@ export default function Page() {
         about me
       </h1>
       <p className="mb-4">
-        {`I'm Konrad Sałkowski, a .NET developer living in Warsaw PL.`}
+        {`I'm Konrad Sałkowski, a .NET developer located in Warsaw PL.`}
       </p>
       <p className="mb-4">
         {`I'm a software engineer that dabbles with coding since 2010. I specialize in .NET tech stack, building APIs and backend systems, but I'm always open to learn and make use of any technology that will help me in my projects.
