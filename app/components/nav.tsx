@@ -17,8 +17,8 @@ export function Navbar() {
   const imageData = {
     src: '/images/me.jpg',
     title: 'me',
-    width: 60,
-    height: 60,
+    width: 80,
+    height: 80,
   };
 
   return (
@@ -46,7 +46,7 @@ export function Navbar() {
                 alt={imageData.title}
                 width={imageData.width}
                 height={imageData.height}
-                className="rounded-full"
+                className="rounded-full border-orange-300 hover:border-orange-500 border-2"
               />
             </div>
           </div>
