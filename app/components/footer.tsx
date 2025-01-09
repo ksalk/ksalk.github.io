@@ -27,8 +27,7 @@ export default function Footer() {
             target="_blank"
             href="https://github.com/ksalk"
           >
-            <ArrowIcon />
-            <p className="ml-2 h-7">github</p>
+            <p className="h-7 font-medium">/github</p>
           </a>
         </li>
         <li>
@@ -38,8 +37,7 @@ export default function Footer() {
             target="_blank"
             href="https://www.linkedin.com/in/konrad-salkowski/"
           >
-            <ArrowIcon />
-            <p className="ml-2 h-7">linkedin</p>
+            <p className="ml-2 h-7 font-medium">/linkedin</p>
           </a>
         </li>       
       </ul>
