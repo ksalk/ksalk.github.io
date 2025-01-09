@@ -22,9 +22,8 @@ export default function Page() {
       <p className="mb-4">
         {`If you want more info about my professional career, check out my `}
         <Link
-          href="https://www.linkedin.com/in/konrad-salkowski/"
-          className='text-neutral-400 dark:text-teal-400'>
-          linkedin page
+          href="https://www.linkedin.com/in/konrad-salkowski/">
+          /linkedin page
         </Link>
         {`.`}
       </p>

@@ -29,6 +29,12 @@
   }
 }
 
+.dark\:bg-dark {
+  @media (prefers-color-scheme: dark) {
+    background-color: #393E46;
+  }
+}
+
 html {
   min-width: 360px;
 }
@@ -150,9 +156,9 @@ table {
 }
 
 a {
-  @apply hover:text-neutral-800 dark:hover:text-teal-200;
+  @apply text-orange-500 dark:text-orange-300 hover:text-orange-700 dark:hover:text-orange-500;
 }
 
 a p {
-  @apply hover:text-neutral-800 dark:hover:text-teal-200;
+  @apply text-orange-500 dark:text-orange-300 hover:text-orange-700 dark:hover:text-orange-500;
 }
