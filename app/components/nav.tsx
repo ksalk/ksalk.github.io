@@ -3,13 +3,13 @@ import Image from 'next/image'
 
 const navItems = {
   '/': {
-    name: 'home',
+    name: '/home',
   },
   '/blog': {
-    name: 'blog',
+    name: '/blog',
   },
   '/about': {
-    name: 'about',
+    name: '/about',
   },
 }
 

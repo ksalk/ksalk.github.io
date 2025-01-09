@@ -11,12 +11,12 @@ import { baseUrl } from './sitemap'
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'ksalk - average dotnet enjoyer',
-    template: '%s | ksalk - average dotnet enjoyer',
+    default: 'ksalk',
+    template: 'ksalk | %s',
   },
   description: 'ksalk - devlog',
   openGraph: {
-    title: 'ksalk - average dotnet enjoyer',
+    title: 'ksalk - devlog',
     description: 'ksalk - devlog',
     url: baseUrl,
     siteName: 'ksalk - devlog',
