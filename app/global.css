@@ -156,9 +156,15 @@ table {
 }
 
 a {
-  @apply text-orange-500 dark:text-orange-300 hover:text-orange-700 dark:hover:text-orange-500;
+  @apply text-orange-500 hover:text-orange-700;
+  @apply dark:text-orange-300 dark:hover:text-orange-500;
 }
 
 a p {
-  @apply text-orange-500 dark:text-orange-300 hover:text-orange-700 dark:hover:text-orange-500;
+  @apply text-orange-500 hover:text-orange-700;
+  @apply dark:text-orange-300 dark:hover:text-orange-500;
+}
+
+.main-link {
+  @apply dark:hover:underline dark:hover:underline-offset-8 dark:hover:decoration-[0.4em];
 }
