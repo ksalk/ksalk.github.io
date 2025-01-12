@@ -46,7 +46,7 @@ export function Navbar() {
                 alt={imageData.title}
                 width={imageData.width}
                 height={imageData.height}
-                className="rounded-full border-orange-300 hover:border-orange-500 border-2"
+                className="nav-image"
               />
             </div>
           </div>
