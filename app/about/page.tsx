@@ -23,7 +23,7 @@ export default function Page() {
         {`If you want more info about my professional career, check out my `}
         <Link
           href="https://www.linkedin.com/in/konrad-salkowski/">
-          /linkedin page
+          linkedin page
         </Link>
         {`.`}
       </p>

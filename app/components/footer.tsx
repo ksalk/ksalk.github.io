@@ -27,7 +27,7 @@ export default function Footer() {
             target="_blank"
             href="https://github.com/ksalk"
           >
-            <p className="h-7 font-medium">/github</p>
+            <p className="h-7 font-medium">github</p>
           </a>
         </li>
         <li>
@@ -37,7 +37,7 @@ export default function Footer() {
             target="_blank"
             href="https://www.linkedin.com/in/konrad-salkowski/"
           >
-            <p className="ml-2 h-7 font-medium">/linkedin</p>
+            <p className="ml-2 h-7 font-medium">linkedin</p>
           </a>
         </li>       
       </ul>

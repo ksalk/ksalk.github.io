@@ -31,7 +31,7 @@
 
 .dark\:bg-dark {
   @media (prefers-color-scheme: dark) {
-    background-color: #393E46;
+    background-color: #232528;
   }
 }
 
