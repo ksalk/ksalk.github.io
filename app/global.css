@@ -169,7 +169,9 @@ a {
   @media (prefers-color-scheme: dark) {
     color: var(--dark-accent-color);
   }
-  color: var(--accent-color);
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
+  }
 }
 
 a:hover {
