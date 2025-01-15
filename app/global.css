@@ -163,9 +163,8 @@ table {
   }
 }
 
-a {
-  /* @apply text-orange-500 hover:text-orange-700;
-  @apply dark:text-orange-300 dark:hover:text-orange-500; */
+/* navbar classes */
+aside a {
   @media (prefers-color-scheme: dark) {
     color: var(--dark-accent-color);
   }
@@ -174,26 +173,13 @@ a {
   }
 }
 
-a:hover {
+aside a:hover {
   @media (prefers-color-scheme: dark) {
     color: var(--dark-accent-color);
   }
   @media (prefers-color-scheme: light) {
     color: var(--accent-color);
   }
-}
-
-a p {
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--accent-color);
-  }
-}
-
-a:hover p { 
-  @apply hover:underline hover:underline-offset-8 hover:decoration-[0.1em];
 }
 
 .main-link {
@@ -214,5 +200,17 @@ a:hover p {
   }
   @media (prefers-color-scheme: light) {
     outline-color: var(--accent-color);
+  }
+}
+
+/* content classes */
+section a {
+  @apply underline decoration-[0.1em];
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
   }
 }
