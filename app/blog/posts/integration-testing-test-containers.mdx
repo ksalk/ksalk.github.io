@@ -1,0 +1,22 @@
+---
+title: 'Integration testing in .NET with TestContainers'
+summary: 'Reliable suite of integration tests increases the confidence of your code correctness significantly, but making your tests as close to the real-world environment as possible is also a challenge.'
+---
+
+Reliable suite of integration tests increases the confidence of your code correctness significantly, but making your tests execute in an environment that is as close to the production as possible is equally crucial. 
+If you are running your integration tests against dependancies that are mocked or stubbed, you run a risk of having a false sense of security. Why not run your tests against the real database engine or messaging broker?
+With TestContainers library, you can do just that. Spinning up a tangible instance of a Sql Server database for the lifetime of your tests requires only a few lines of code.
+
+## What is TestContainers?
+
+TestContainers is a .NET library that allows you to programatically manage Docker images and containers for the purpose of integration testing. It lets you create and dispose containers of common, predefined images as well as custom Docker images built based on your Dockerfile.
+
+You can find more information about TestContainers library and its documentation on the [TestContainers project page](https://dotnet.testcontainers.org).
+
+## TODO
+
+* simple example
+* container per test or class
+* custom image example
+* network
+* ci/cd

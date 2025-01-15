@@ -41,6 +41,22 @@ export function Navbar() {
               )
             })}
             <div className="ml-auto transition-all flex align-middle relative py-1 px-2">
+              <a
+                className="main-link flex items-center transition-all"
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://github.com/ksalk"
+              >
+                <p className="h-7 font-medium text-2xl"><i className="fa-brands fa-github"></i></p>
+              </a>
+              <a
+                className="main-link flex items-center transition-all"
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://www.linkedin.com/in/konrad-salkowski/"
+              >
+                <p className="ml-4 mr-8 h-7 font-medium text-2xl"><i className="fa-brands fa-linkedin"></i></p>
+              </a>
               <Image
                 src={imageData.src}
                 alt={imageData.title}

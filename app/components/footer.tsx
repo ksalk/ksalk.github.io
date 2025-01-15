@@ -20,26 +20,16 @@ export default function Footer() {
   return (
     <footer className="mb-16 mt-16">
       <ul className="font-sm mt-8 flex flex-col space-x-0 space-y-2 text-neutral-600 md:flex-row md:space-x-4 md:space-y-0 dark:text-neutral-300">
-        <li>
+        {/* <li>
           <a
             className="main-link flex items-center transition-all"
             rel="noopener noreferrer"
             target="_blank"
             href="https://github.com/ksalk"
           >
-            <p className="h-7 font-medium">github</p>
+            <p className="h-7 font-medium"><i className="fa-brands fa-github"></i> github</p>
           </a>
-        </li>
-        <li>
-          <a
-            className="main-link flex items-center transition-all"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://www.linkedin.com/in/konrad-salkowski/"
-          >
-            <p className="ml-2 h-7 font-medium">linkedin</p>
-          </a>
-        </li>       
+        </li> */}
       </ul>
       <p className="mt-8 text-neutral-500 dark:text-neutral-400">
         © {new Date().getFullYear()} MIT Licensed

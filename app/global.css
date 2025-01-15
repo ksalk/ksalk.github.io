@@ -15,6 +15,12 @@
   --sh-jsxliterals: #6266d1;
   --sh-property: #e25a1c;
   --sh-entity: #e25a1c;
+
+  /* custom colors */
+  --accent-color: #1596ca;
+
+  --dark-primary-color: #1a1b1c;
+  --dark-accent-color: #87ceeb;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -153,24 +159,58 @@ table {
 
 .dark\:bg-dark {
   @media (prefers-color-scheme: dark) {
-    background-color: #232528;
+    background-color: var(--dark-primary-color);
   }
 }
 
 a {
-  @apply text-orange-500 hover:text-orange-700;
-  @apply dark:text-orange-300 dark:hover:text-orange-500;
+  /* @apply text-orange-500 hover:text-orange-700;
+  @apply dark:text-orange-300 dark:hover:text-orange-500; */
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-accent-color);
+  }
+  color: var(--accent-color);
+}
+
+a:hover {
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
+  }
 }
 
 a p {
-  @apply text-orange-500 hover:text-orange-700;
-  @apply dark:text-orange-300 dark:hover:text-orange-500;
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
+  }
+}
+
+a:hover p { 
+  @apply hover:underline hover:underline-offset-8 hover:decoration-[0.1em];
 }
 
 .main-link {
-  @apply dark:hover:underline dark:hover:underline-offset-8 dark:hover:decoration-[0.4em];
+  @apply hover:underline hover:underline-offset-8 hover:decoration-[0.2em];
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
+  }
 }
 
 .nav-image {
-  @apply mt-4 mb-4 rounded-full outline-orange-300 hover:outline-orange-500 outline-2 outline-offset-4 hover:outline-4;
+  @apply mt-4 mb-4 rounded-full outline-2 outline-offset-4 hover:outline-4;
+  @media (prefers-color-scheme: dark) {
+    outline-color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    outline-color: var(--accent-color);
+  }
 }

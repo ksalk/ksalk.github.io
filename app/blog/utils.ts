@@ -2,9 +2,10 @@ import fs from 'fs'
 import path from 'path'
 
 type Metadata = {
-  title: string
-  publishedAt: string
-  summary: string
+  title: string,
+  publishedAt: string,
+  summary: string,
+  draft: string,
   image?: string
 }
 
@@ -35,7 +36,7 @@ function readMDXFile(filePath) {
   return parseFrontmatter(rawContent)
 }
 
-function getMDXData(dir) {
+function getMDXData(dir, includeDrafts = false) {
   let mdxFiles = getMDXFiles(dir)
   return mdxFiles.map((file) => {
     let { metadata, content } = readMDXFile(path.join(dir, file))
@@ -46,10 +47,10 @@ function getMDXData(dir) {
       slug,
       content,
     }
-  })
+  }).filter(({ metadata }) => includeDrafts || metadata.publishedAt)
 }
 
-export function getBlogPosts() {
+export function getBlogPosts(includeDrafts = false) {
   return getMDXData(path.join(process.cwd(), 'app', 'blog', 'posts'))
 }
 
