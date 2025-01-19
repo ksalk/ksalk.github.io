@@ -8,6 +8,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
 
+
+
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
@@ -54,6 +56,7 @@ export default function RootLayout({
     >
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        {/* Favicon font: Ceviche One by Font Diner, licensed under SIL Open Font License 1.1 */}
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="antialiased max-w-3xl mx-4 mt-8 lg:mx-auto">
