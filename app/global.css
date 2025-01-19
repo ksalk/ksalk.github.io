@@ -183,7 +183,8 @@ aside a:hover {
 }
 
 .main-link {
-  @apply hover:underline hover:underline-offset-8 hover:decoration-[0.2em];
+  @apply underline underline-offset-8 decoration-[0.1em];
+  @apply hover:decoration-[0.4em];
 
   @media (prefers-color-scheme: dark) {
     color: var(--dark-accent-color);
@@ -205,7 +206,8 @@ aside a:hover {
 
 /* content classes */
 section a {
-  @apply underline decoration-[0.1em];
+  @apply underline underline-offset-4 decoration-[0.1em];
+  @apply hover:decoration-[0.2em];
 
   @media (prefers-color-scheme: dark) {
     color: var(--dark-accent-color);
