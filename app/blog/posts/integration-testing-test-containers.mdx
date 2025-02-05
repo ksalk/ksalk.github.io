@@ -13,6 +13,44 @@ TestContainers is a .NET library that allows you to programatically manage Docke
 
 You can find more information about TestContainers library and its documentation on the [TestContainers project page](https://dotnet.testcontainers.org).
 
+## How to use TestContainers?
+
+To use TestContainers in your project, you need to add the TestContainers NuGet package to your project. You can do this by running the following command in your terminal:
+
+```bash
+dotnet add package TestContainers
+```
+
+Once you have the TestContainers package installed, you can start using it in your tests. Here is an example of how you can use TestContainers to spin up a SQL Server container for your integration tests:
+
+```csharp
+using System;
+using System.Threading.Tasks;
+using TestContainers.Container.Abstractions.Hosting;
+using TestContainers.Container.Database.MsSql;
+
+public class MsSqlContainerFixture : IAsyncLifetime
+{
+    public MsSqlTestContainer Container { get; private set; }
+
+    public async Task InitializeAsync()
+    {
+        Container = new MsSqlTestContainerBuilder()
+            .WithDatabaseName("testdb")
+            .WithUsername("sa")
+            .WithPassword("Your_password123")
+            .Build();
+
+        await Container.StartAsync();
+    }
+
+    public async Task DisposeAsync()
+    {
+        await Container.StopAsync();
+    }
+}
+```
+
 ## TODO
 
 * simple example
