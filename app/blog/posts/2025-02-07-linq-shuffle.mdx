@@ -10,31 +10,9 @@ Next version of .NET, .NET 10, will bring a new extension method to LINQ that wi
 
 `Shuffle` is an operation that randomly distributes elements of a collection. It is a common operation in many programming languages and libraries, but it was missing in LINQ until now. It may be useful in games, simulations, data processing, or any other business scenario that requires randomization of elements.
 
-## New extension method
-
-With .NET 10 you will be able to use it simply like this:
-
-```csharp
-var shuffled = collection.Shuffle();
-```
-
-Under the hood, it uses `Random.Shared.Shuffle()` method to randomize the elements of a collection. `Random.Shared` is a thread-safe random number generator that was introduced in .NET 6. If you are used to generating random numbers using `new Random().Next()`, consider switching to `Random.Shared.Next()` as it is a better choice for most scenarios and does not require to instantiate new `Random` object.
-
-However, have in mind the way the `IQueryable` interface works by not materializing the query until it is needed. It may lead to some unexpected behaviour when used with `Shuffle` method. Consider such example (that was also pointed out in the discussion under the change proposal on GitHub):
-
-```csharp
-var shuffleQuery = list.Shuffle();
-var first = shuffleQuery.ToArray();
-var second = shuffleQuery.ToArray();
-```
-
-When materialized, `first` and `second` arrays might have different order of elements, as the actual shuffle operation is performed when the query is materialized in the `ToArray()` methods. So in the above example, element shuffling is performed independently for collections `first` and `second`.
-
-To get more insight of how it is going to work, you can check the [files changed in the pull request](https://github.com/dotnet/runtime/pull/112173/files).
-
 ## Old ways
 
-To achieve similar behaviour to new `Shuffle` method now, you would probably use something like: 
+To achieve similar behaviour to new `Shuffle` method now, you would probably write something like: 
 ```csharp
 .OrderBy(_ => Random.Shared.Next())
 ``` 
@@ -44,5 +22,27 @@ or
 .OrderBy(_ => Guid.NewGuid())
 ```
 but this code may not be as clear in its purpose as a dedicated `Shuffle` method. You could also try to create your own implementation as extension method, but you would need to be careful about the performance and randomness of the implementation.
+
+## New extension method
+
+With .NET 10 you will be able to use it simply like this:
+
+```csharp
+var shuffled = collection.Shuffle();
+```
+
+When working with new 'Shuffle' method, have in mind the way the `IQueryable` interface works by not materializing the query until it is needed. It may lead to some unexpected behaviour when used with `Shuffle` method. Consider such example (that was also pointed out in the discussion under the change proposal on GitHub):
+
+```csharp
+var shuffleQuery = list.Shuffle();
+var first = shuffleQuery.ToArray();
+var second = shuffleQuery.ToArray();
+```
+
+When materialized, `first` and `second` arrays might have different order of elements, as the actual shuffle operation is performed when the query is materialized in the `ToArray()` methods. So in the above example, element shuffling is performed independently for collections `first` and `second`.
+
+Under the hood, it uses `Random.Shared.Shuffle()` method to randomize the elements of a collection. `Random.Shared` is a thread-safe random number generator that was introduced in .NET 6. If you are used to generating random numbers using `new Random().Next()`, consider switching to `Random.Shared.Next()` as it is a better choice for most scenarios and does not require to instantiate new `Random` object.
+
+To get more insight of how it is going to work, you can check the [files changed in the pull request](https://github.com/dotnet/runtime/pull/112173/files). New method is already used in few places in dotnet source code, instead of using `OrderBy` with random number generator.
 
 It is evident that there is a need for a dedicated method in LINQ for this operation, and it is being addressed in the next version of .NET. It may seem like a trivial change, but I think it's cool to see more and more utility methods added to the LINQ library, making it more powerful and easier to use.
