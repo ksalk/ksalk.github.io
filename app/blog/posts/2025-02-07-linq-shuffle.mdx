@@ -4,11 +4,11 @@ summary: 'Simple yet useful shuffle operation added to LINQ in .NET 10.'
 publishedAt: '2025-02-07'
 ---
 
-Next version of .NET, .NET 10, will bring a new extension method to LINQ that will allow you to randomly distribute elements of a collection, called `Shuffle`. [Proposal for such feature](https://github.com/dotnet/runtime/issues/111221) was raised last month in github dotnet repository and [PR with the extension](https://github.com/dotnet/runtime/pull/112173) was just merged to `main` branch by Stephen Toub.
+Next version of .NET, .NET 10, will bring a new extension method to LINQ that will allow you to randomly distribute elements of a collection, called `Shuffle`. [Proposal for such feature](https://github.com/dotnet/runtime/issues/111221) was raised last month in dotnet GitHub repository and [the pull request with the extension](https://github.com/dotnet/runtime/pull/112173) was just merged to `main` branch by Stephen Toub.
 
 ## What is `Shuffle`?
 
-`Shuffle` is an operation that randomly distributes elements of a collection. It is a common operation in many programming languages and libraries, but it was missing in LINQ until now. It may be useful in games, simulations, data processing, or any other business scenario that may reqiure randomization of elements.
+`Shuffle` is an operation that randomly distributes elements of a collection. It is a common operation in many programming languages and libraries, but it was missing in LINQ until now. It may be useful in games, simulations, data processing, or any other business scenario that requires randomization of elements.
 
 ## New extension method
 
@@ -18,9 +18,9 @@ With .NET 10 you will be able to use it simply like this:
 var shuffled = collection.Shuffle();
 ```
 
-Under the hood, it uses `Random.Shared.Shuffle()` method to shuffle the collection. Just a reminder, `Random.Shared` is a thread-safe random number generator that was introduced in .NET 6. If you are used to generating random numbers using `new Random().Next()`, consider switching to `Random.Shared.Next()` as it is a better choice for most scenarios and does not require to instantiate new `Random` object.
+Under the hood, it uses `Random.Shared.Shuffle()` method to randomize the elements of a collection. Just a reminder, `Random.Shared` is a thread-safe random number generator that was introduced in .NET 6. If you are used to generating random numbers using `new Random().Next()`, consider switching to `Random.Shared.Next()` as it is a better choice for most scenarios and does not require to instantiate new `Random` object.
 
-To achieve similar behaviour to new `Shuffle` method now, you would probably use something like 
+To achieve similar behaviour to new `Shuffle` method now, you would probably use something like: 
 ```csharp
 .OrderBy(_ => Random.Shared.Next())
 ``` 
@@ -29,6 +29,6 @@ or
 ```csharp
 .OrderBy(_ => Guid.NewGuid())
 ```
-but this code may not be as clear in it's purpose as a dedicated `Shuffle` method. You could also try to create your own implementation as extension method, but you would need to be careful about the performance and randomness of the implementation.
+but this code may not be as clear in its purpose as a dedicated `Shuffle` method. You could also try to create your own implementation as extension method, but you would need to be careful about the performance and randomness of the implementation.
 
-It is evident that there is a need for a dedicated method in LINQ for this operation, and it is getting addressed in the next version of .NET. It may seem like a trivial change, but I think it's cool to see more and more utility methods added to the LINQ library, making it more powerful and easier to use.
+It is evident that there is a need for a dedicated method in LINQ for this operation, and it is being addressed in the next version of .NET. It may seem like a trivial change, but I think it's cool to see more and more utility methods added to the LINQ library, making it more powerful and easier to use.
