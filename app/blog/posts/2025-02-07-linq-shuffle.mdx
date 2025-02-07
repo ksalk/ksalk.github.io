@@ -18,7 +18,21 @@ With .NET 10 you will be able to use it simply like this:
 var shuffled = collection.Shuffle();
 ```
 
-Under the hood, it uses `Random.Shared.Shuffle()` method to randomize the elements of a collection. Just a reminder, `Random.Shared` is a thread-safe random number generator that was introduced in .NET 6. If you are used to generating random numbers using `new Random().Next()`, consider switching to `Random.Shared.Next()` as it is a better choice for most scenarios and does not require to instantiate new `Random` object.
+Under the hood, it uses `Random.Shared.Shuffle()` method to randomize the elements of a collection. `Random.Shared` is a thread-safe random number generator that was introduced in .NET 6. If you are used to generating random numbers using `new Random().Next()`, consider switching to `Random.Shared.Next()` as it is a better choice for most scenarios and does not require to instantiate new `Random` object.
+
+However, have in mind the way the `IQueryable` interface works by not materializing the query until it is needed. It may lead to some unexpected behaviour when used with `Shuffle` method. Consider such example (that was also pointed out in the discussion under the change proposal on GitHub):
+
+```csharp
+var shuffleQuery = list.Shuffle();
+var first = shuffleQuery.ToArray();
+var second = shuffleQuery.ToArray();
+```
+
+When materialized, `first` and `second` arrays might have different order of elements, as the actual shuffle operation is performed when the query is materialized in the `ToArray()` methods. So in the above example, element shuffling is performed independently for collections `first` and `second`.
+
+To get more insight of how it is going to work, you can check the [files changed in the pull request](https://github.com/dotnet/runtime/pull/112173/files).
+
+## Old ways
 
 To achieve similar behaviour to new `Shuffle` method now, you would probably use something like: 
 ```csharp
