@@ -6,7 +6,8 @@ type Metadata = {
   publishedAt: string,
   summary: string,
   draft: string,
-  image?: string
+  image?: string,
+  tags?: string
 }
 
 function parseFrontmatter(fileContent: string) {
