@@ -6,7 +6,7 @@
 }
 
 :root {
-  --sh-class: #581edf;
+  --sh-class: #3f90bf;
   --sh-identifier: #354150;
   --sh-sign: #8996a3;
   --sh-string: #007f7a;
@@ -20,14 +20,14 @@
   --accent-color: #1596ca;
 
   --dark-primary-color: #1a1b1c;
-  --dark-accent-color: #79b9d3;
+  --dark-accent-color: #82cdea;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --sh-class: #85baff;
+    --sh-class: #4fa6d9;
     --sh-identifier: white;
-    --sh-keyword: #fb8f87;
+    --sh-keyword: #ff776e;
     --sh-string: #0fa295;
   }
   html {
@@ -208,11 +208,37 @@ aside a:hover {
 section a {
   @apply underline underline-offset-4 decoration-[0.1em];
   @apply hover:decoration-[0.2em];
+  @apply font-medium;
 
   @media (prefers-color-scheme: dark) {
     color: var(--dark-accent-color);
   }
   @media (prefers-color-scheme: light) {
     color: var(--accent-color);
+  }
+}
+
+.prose a {
+  @apply underline underline-offset-4 decoration-[0.1em];
+  @apply hover:decoration-[0.2em];
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-accent-color);
+    text-decoration-color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
+    text-decoration-color: var(--accent-color);
+  }
+}
+
+code:not(pre code) {
+  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg px-1 py-0.5;
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: #2b2d2e;
+  }
+  @media (prefers-color-scheme: light) {
+    background-color: #e3ebef;
   }
 }
