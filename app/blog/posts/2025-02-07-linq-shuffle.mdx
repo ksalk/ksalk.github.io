@@ -13,7 +13,8 @@ Next version of .NET, .NET 10, will bring a new extension method to LINQ that wi
 
 ## Old ways
 
-To achieve similar behaviour to new `Shuffle` method now, you would probably write something like: 
+Currently, to achieve similar behaviour to new `Shuffle` method, you would probably write something like: 
+
 ```csharp
 .OrderBy(_ => Random.Shared.Next())
 ``` 
