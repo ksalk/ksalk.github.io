@@ -19,8 +19,9 @@
   /* custom colors */
   --accent-color: #1596ca;
 
-  --dark-primary-color: #1a1b1c;
-  --dark-accent-color: #82cdea;
+  --dark-primary-color: #222831;
+  --dark-accent-color: #00ADB5;
+  --dark-secondary-color: #EEEEEE;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -184,10 +185,10 @@ aside a:hover {
 
 .main-link {
   @apply underline underline-offset-8 decoration-[0.1em];
-  @apply hover:decoration-[0.4em];
 
   @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
+    color: var(--dark-secondary-color);
+    text-decoration-color: var(--dark-accent-color);
   }
   @media (prefers-color-scheme: light) {
     color: var(--accent-color);
@@ -207,9 +208,18 @@ aside a:hover {
 /* content classes */
 section a {
   @apply underline underline-offset-4 decoration-[0.1em];
-  @apply hover:decoration-[0.2em];
   @apply font-medium;
 
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-secondary-color);
+    text-decoration-color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
+  }
+}
+
+section a:hover {
   @media (prefers-color-scheme: dark) {
     color: var(--dark-accent-color);
   }
@@ -220,15 +230,23 @@ section a {
 
 .prose a {
   @apply underline underline-offset-4 decoration-[0.1em];
-  @apply hover:decoration-[0.2em];
 
   @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
+    color: var(--dark-secondary-color);
     text-decoration-color: var(--dark-accent-color);
   }
   @media (prefers-color-scheme: light) {
     color: var(--accent-color);
     text-decoration-color: var(--accent-color);
+  }
+}
+
+.prose a:hover {
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
   }
 }
 
