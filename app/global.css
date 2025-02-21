@@ -43,7 +43,6 @@
     @apply from-slate-700 to-slate-800
   }
   @media (prefers-color-scheme: light) {
-    /* @apply from-slate-100 to-slate-300 */
     @apply from-white to-indigo-100
   }
 
@@ -149,7 +148,7 @@ code:not(pre code) {
   @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg px-1 py-0.5;
   
   @media (prefers-color-scheme: dark) {
-    background-color: #2b2d2e;
+    background-color: var(--color-neutral-800, #171717);
   }
   @media (prefers-color-scheme: light) {
     background-color: #ffffff;
