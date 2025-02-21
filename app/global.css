@@ -17,10 +17,10 @@
   --sh-entity: #e25a1c;
 
   /* custom colors */
-  --secondary-color: #0284c7;
-  --accent-color: #0ea5e9;
+  --secondary-color: var(--color-blue-400);
+  --accent-color: var(--color-blue-600);
 
-  --dark-accent-color: #4FC3F7;
+  --dark-accent-color: var(--color-sky-400);
   --dark-secondary-color: #e2feff;
 }
 
@@ -93,7 +93,7 @@ aside a:hover {
     outline-color: var(--dark-accent-color);
   }
   @media (prefers-color-scheme: light) {
-    outline-color: var(--accent-color);
+    outline-color: var(--secondary-color);
   }
 }
 
