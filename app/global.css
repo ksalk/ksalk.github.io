@@ -40,11 +40,13 @@
 
 .dark\:bg-dark {
   @media (prefers-color-scheme: dark) {
-    @apply bg-gradient-to-br from-slate-700 to-slate-800
+    @apply from-slate-700 to-slate-800
   }
   @media (prefers-color-scheme: light) {
-    @apply bg-gradient-to-br from-slate-100 to-slate-300
+    @apply from-slate-100 to-slate-300
   }
+
+  @apply bg-fixed bg-gradient-to-br
 }
 
 /* navbar classes */
