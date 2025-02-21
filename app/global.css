@@ -43,7 +43,8 @@
     @apply from-slate-700 to-slate-800
   }
   @media (prefers-color-scheme: light) {
-    @apply from-slate-100 to-slate-300
+    /* @apply from-slate-100 to-slate-300 */
+    @apply from-white to-indigo-100
   }
 
   @apply bg-fixed bg-gradient-to-br
