@@ -17,10 +17,11 @@
   --sh-entity: #e25a1c;
 
   /* custom colors */
-  --accent-color: #1596ca;
+  --secondary-color: #0284c7;
+  --accent-color: #0ea5e9;
 
-  --dark-primary-color: #1a1b1c;
-  --dark-accent-color: #82cdea;
+  --dark-accent-color: #4FC3F7;
+  --dark-secondary-color: #e2feff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,6 +35,125 @@
     color-scheme: dark;
   }
 }
+
+/* Custom classes *********** */
+
+.dark\:bg-dark {
+  @media (prefers-color-scheme: dark) {
+    @apply bg-gradient-to-br from-slate-700 to-slate-800
+  }
+  @media (prefers-color-scheme: light) {
+    @apply bg-gradient-to-br from-slate-100 to-slate-300
+  }
+}
+
+/* navbar classes */
+aside a {
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
+  }
+}
+
+aside a:hover {
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
+  }
+}
+
+.main-link {
+  @apply underline underline-offset-8 decoration-[0.1em];
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-secondary-color);
+    text-decoration-color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--secondary-color);
+    text-decoration-color: var(--secondary-color);
+  }
+}
+
+.main-link:hover {
+  @media (prefers-color-scheme: light) {
+    text-decoration-color: var(--accent-color);
+  }
+}
+
+.nav-image {
+  @apply mt-4 mb-4 rounded-full outline-2 outline-offset-4 hover:outline-4;
+  @media (prefers-color-scheme: dark) {
+    outline-color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    outline-color: var(--accent-color);
+  }
+}
+
+/* content classes */
+section a {
+  @apply underline underline-offset-4 decoration-[0.1em];
+  @apply font-medium;
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-secondary-color);
+    text-decoration-color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--secondary-color);
+    text-decoration-color: var(--secondary-color);
+  }
+}
+
+section a:hover {
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
+  }
+}
+
+.prose a {
+  @apply underline underline-offset-4 decoration-[0.1em];
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-secondary-color);
+    text-decoration-color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--secondary-color);
+    text-decoration-color: var(--secondary-color);
+  }
+}
+
+.prose a:hover {
+  @media (prefers-color-scheme: dark) {
+    color: var(--dark-accent-color);
+  }
+  @media (prefers-color-scheme: light) {
+    color: var(--accent-color);
+    text-decoration-color: var(--accent-color);
+  }
+}
+
+code:not(pre code) {
+  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg px-1 py-0.5;
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: #2b2d2e;
+  }
+  @media (prefers-color-scheme: light) {
+    background-color: #ffffff;
+  }
+}
+
+/* Custom classes end *********** */
 
 html {
   min-width: 360px;
@@ -153,92 +273,4 @@ table {
 
 .title {
   text-wrap: balance;
-}
-
-/* Custom classes */
-
-.dark\:bg-dark {
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--dark-primary-color);
-  }
-}
-
-/* navbar classes */
-aside a {
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--accent-color);
-  }
-}
-
-aside a:hover {
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--accent-color);
-  }
-}
-
-.main-link {
-  @apply underline underline-offset-8 decoration-[0.1em];
-  @apply hover:decoration-[0.4em];
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--accent-color);
-  }
-}
-
-.nav-image {
-  @apply mt-4 mb-4 rounded-full outline-2 outline-offset-4 hover:outline-4;
-  @media (prefers-color-scheme: dark) {
-    outline-color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    outline-color: var(--accent-color);
-  }
-}
-
-/* content classes */
-section a {
-  @apply underline underline-offset-4 decoration-[0.1em];
-  @apply hover:decoration-[0.2em];
-  @apply font-medium;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--accent-color);
-  }
-}
-
-.prose a {
-  @apply underline underline-offset-4 decoration-[0.1em];
-  @apply hover:decoration-[0.2em];
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
-    text-decoration-color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--accent-color);
-    text-decoration-color: var(--accent-color);
-  }
-}
-
-code:not(pre code) {
-  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg px-1 py-0.5;
-  
-  @media (prefers-color-scheme: dark) {
-    background-color: #2b2d2e;
-  }
-  @media (prefers-color-scheme: light) {
-    background-color: #e3ebef;
-  }
 }
