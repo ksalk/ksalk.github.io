@@ -40,13 +40,13 @@
 
 .dark\:bg-dark {
   @media (prefers-color-scheme: dark) {
-    @apply bg-zinc-900 
+    @apply bg-slate-700 from-slate-700 to-slate-800
   }
   @media (prefers-color-scheme: light) {
     @apply from-white to-indigo-100
   }
 
-  /* @apply bg-fixed bg-gradient-to-br */
+  @apply bg-fixed bg-gradient-to-br
 }
 
 /* navbar classes */
@@ -148,7 +148,7 @@ code:not(pre code) {
   @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg px-1 py-0.5;
   
   @media (prefers-color-scheme: dark) {
-    background-color: var(--color-neutral-800, #171717);
+    background-color: var(--color-neutral-900, #171717);
   }
   @media (prefers-color-scheme: light) {
     background-color: #ffffff;
