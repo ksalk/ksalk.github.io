@@ -5,14 +5,14 @@ publishedAt: '2025-02-26'
 tags: '.NET, Testing, TestContainers'
 ---
 
-Reliable suite of integration tests increases the confidence of your code correctness significantly, but making your tests execute in an environment that is as close to the production as possible is equally crucial. 
-If you are running your integration tests against dependancies that are mocked or stubbed, you run a risk of having a false sense of security. For instance, you may be used to test your code against in-memory database from Entity Framework Core, but did you know that the in-memory database behaves differently than the real database engine? It lack few essential features, such as transactions or constraints, and you might not catch some bugs that would occur in real environment.
+A reliable suite of integration tests significantly increases confidence in your code's correctness, but running your tests in an environment as close to production as possible is equally crucial. 
+If you are running your integration tests against dependencies that are mocked or stubbed, you risk having a false sense of security. For instance, you may be used to test your code against in-memory database from Entity Framework Core, but did you know that the in-memory database behaves differently than the real database engine? It lacks a few essential features, such as transactions or constraints, and you might not catch some bugs that would occur in a real environment.
 So, why not run your tests against the real database engine or messaging broker?
 With TestContainers library, you can do just that. Spinning up a tangible instance of a database for the lifetime of your tests requires only a few lines of code.
 
 ## What's so great about TestContainers?
 
-TestContainers is a .NET library that allows you to programatically manage Docker images and containers for the purpose of integration testing. It lets you create and dispose containers of common, predefined images as well as custom Docker images, built based on your Dockerfile or configuration provided in the code.
+TestContainers is a .NET library that allows you to programmatically manage Docker images and containers for the purpose of integration testing. It lets you create and dispose containers of common, predefined images as well as custom Docker images, built based on your Dockerfile or configuration provided in the code.
 
 You can find more information about TestContainers library and its documentation on the [TestContainers project page](https://dotnet.testcontainers.org).
 
@@ -20,18 +20,18 @@ You can find more information about TestContainers library and its documentation
 
 To use TestContainers in your project, you need to have Docker running on your machine. You can make sure that it's up by running `docker info` in command line. If Docker is running, this will display detailed information about the Docker daemon.
 
-Next step is adding the TestContainers NuGet package to your test project - I'm using `xUnit`. In my example, I will be creating temporary instances of Postgresql database for the integrations tests, so I will also add a package that contains predefined Postgresql test containers. You can do this by running the following command in terminal in test project directory:
+The next step is adding the TestContainers NuGet package to your test project - I'm using `xUnit`. In my example, I will be creating temporary instances of Postgresql database for the integrations tests, so I will also add a package that contains predefined Postgresql test containers. You can do this by running the following command in terminal in test project directory:
 
 ```bash
 dotnet add package TestContainers
 dotnet add package Testcontainers.PostgreSql
 ```
 
-Once you have the both packages installed, you can start using it in your tests. 
+Once you have both packages installed, you can start using it in your tests. 
 
 ## Using preconfigured containers
 
-I will take advantage of already prepared PostgreSql container, so that I don't need to configure it myself. Firstly, let's configure a integration tests base class, that your test classes will inherit from and will manage the Postgresql Container lifecycle. Here is an example of how you can write it:
+I will take advantage of already prepared PostgreSql container, so that I don't need to configure it myself. First, let's configure a integration tests base class, that your test classes will inherit from and will manage the Postgresql Container lifecycle. Here is an example of how you can write it:
 
 ```csharp
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -123,15 +123,15 @@ public class PreconfiguredContainerIntegrationTests : PreconfiguredContainerInte
 }
 ```
 
-This simple tests checks whether the API resposne is successful and asserts few properties of the weather forecast object. The `SeedWeatherEntities` method is a helper method that seeds the database with the provided weather forecast object.
+This simple tests checks whether the API resposne is successful and asserts a few properties of the weather forecast object. The `SeedWeatherEntities` method is a helper method that seeds the database with the provided weather forecast object.
 
-For this test, `xUnit` will create a new instance of `PreconfiguredContainerIntegrationTests` class, which will start a new container, set up test API instance and run the test method. After the test method is finished, the container will be stopped and disposed. If there are more test methods in the same class, the containers will be created and disposed for each of them, so each test will have it's own instance of the container. Thanks to that you can be sure that the tests are isolated from each other and won't interfere with each other.
+For this test, `xUnit` will create a new instance of `PreconfiguredContainerIntegrationTests` class, which will start a new container, set up test API instance and run the test method. After the test method is finished, the container will be stopped and disposed. If there are more test methods in the same class, the containers will be created and disposed for each of them, so each test will have its own instance of the container. This ensures that tests are isolated and do not interfere with one another.
 
 Now you can run the tests by executing `dotnet test` command in the test project directory. The tests should pass and you can be sure that your API works correctly with the Postgresql database.
 
 ## Custom containers
 
-In previous example I used already provided Postgresql container, but what if what you want to use is not available in the TestContainers library? Thankfully, TestContainers allow you to create your own custom container by providing a Dockerfile or configuration in the code. Here is an example of how you can create the same Postgresql container as in the previous example, but this time using custom container defined purely in the code:
+In the previous example, I used an already provided Postgresql container, but what if what you want to use is not available in the TestContainers library? Thankfully, TestContainers allow you to create your own custom container by providing a Dockerfile or configuration in the code. Here is an example of how you can create the same Postgresql container as in the previous example, but this time using custom container defined purely in the code:
 
 ```csharp
 public class CustomContainerIntegrationTestBase : IAsyncLifetime
@@ -197,12 +197,12 @@ _postgresContainer = new ContainerBuilder()
 await _postgresContainer.StartAsync();
 ```
 
-This time, you need to provide a path to Dockerfile and programatically build Docker image out of it, and then run it as container similarly as in previous examples.
+This time, you need to provide a path to Dockerfile and programmatically build Docker image out of it, and then run it as container similarly as in previous examples.
 
 By using custom code configuration or custom Dockerfile you can create any container you want for the purpose of integration testing, so you can be sure that your tests are as close to the real-world environment as possible. 
 
 ## Final thoughts
 
-Having the ability to run integration tests against tangible dependancies is a great advantage, and TestContainers library makes it easy to achieve. Have in mind, that you are not limited to a single container - you can create as many container for your tests as you need. If you need Redis instance to test your caching layer, just have at it. Message broker for your messaging system? No problem. You can even create a network of containers that will communicate with each other, so you can test the whole system in one go.
+Having the ability to run integration tests against tangible dependencies is a great advantage, and TestContainers library makes it easy to achieve. Keep in mind, that you are not limited to a single container - you can create as many containers for your tests as you need. If you need Redis instance to test your caching layer, just have at it. Message broker for your messaging system? No problem. You can even create a network of containers that will communicate with each other, so you can test the whole system in one go.
 
 TestContainers is a great addition to your testing toolbox, so I encourage you to give it a try in your next project.
