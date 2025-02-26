@@ -31,7 +31,7 @@ Once you have both packages installed, you can start using it in your tests.
 
 ## Using preconfigured containers
 
-I will take advantage of already prepared PostgreSql container, so that I don't need to configure it myself. First, let's configure a integration tests base class, that your test classes will inherit from and will manage the Postgresql Container lifecycle. Here is an example of how you can write it:
+First, let's configure a integration tests base class, that will manage the Postgresql Container lifecycle and your test classes will inherit from. Here is an example of how you can write it:
 
 ```csharp
 using Microsoft.AspNetCore.Mvc.Testing;
