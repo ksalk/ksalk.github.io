@@ -1,0 +1,208 @@
+---
+title: 'Integration testing in .NET with TestContainers'
+summary: 'Reliable suite of integration tests increases the confidence of your code correctness significantly, but making your tests as close to the real-world environment as possible is also a challenge.'
+publishedAt: '2025-02-26'
+tags: '.NET, Testing, TestContainers'
+---
+
+Reliable suite of integration tests increases the confidence of your code correctness significantly, but making your tests execute in an environment that is as close to the production as possible is equally crucial. 
+If you are running your integration tests against dependancies that are mocked or stubbed, you run a risk of having a false sense of security. For instance, you may be used to test your code against in-memory database from Entity Framework Core, but did you know that the in-memory database behaves differently than the real database engine? It lack few essential features, such as transactions or constraints, and you might not catch some bugs that would occur in real environment.
+So, why not run your tests against the real database engine or messaging broker?
+With TestContainers library, you can do just that. Spinning up a tangible instance of a database for the lifetime of your tests requires only a few lines of code.
+
+## What's so great about TestContainers?
+
+TestContainers is a .NET library that allows you to programatically manage Docker images and containers for the purpose of integration testing. It lets you create and dispose containers of common, predefined images as well as custom Docker images, built based on your Dockerfile or configuration provided in the code.
+
+You can find more information about TestContainers library and its documentation on the [TestContainers project page](https://dotnet.testcontainers.org).
+
+## How to use TestContainers?
+
+To use TestContainers in your project, you need to have Docker running on your machine. You can make sure that it's up by running `docker info` in command line. If Docker is running, this will display detailed information about the Docker daemon.
+
+Next step is adding the TestContainers NuGet package to your test project - I'm using `xUnit`. In my example, I will be creating temporary instances of Postgresql database for the integrations tests, so I will also add a package that contains predefined Postgresql test containers. You can do this by running the following command in terminal in test project directory:
+
+```bash
+dotnet add package TestContainers
+dotnet add package Testcontainers.PostgreSql
+```
+
+Once you have the both packages installed, you can start using it in your tests. 
+
+## Using preconfigured containers
+
+I will take advantage of already prepared PostgreSql container, so that I don't need to configure it myself. Firstly, let's configure a integration tests base class, that your test classes will inherit from and will manage the Postgresql Container lifecycle. Here is an example of how you can write it:
+
+```csharp
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Testcontainers.PostgreSql;
+using Microsoft.Extensions.DependencyInjection;
+using TestContainersExample.API;
+using DotNet.Testcontainers.Builders;
+
+namespace TestContainersExample.Tests;
+
+public class PreconfiguredContainerIntegrationTestBase : IAsyncLifetime
+{
+    protected HttpClient _client;
+    private PostgreSqlContainer _postgresContainer;
+    private WebApplicationFactory<Program> _factory;
+
+    private readonly string dbUsername = "testuser";
+    private readonly string dbPassword = "testpassword";
+    private readonly string dbName = "testdb";
+
+    public async Task InitializeAsync()
+    {
+        _postgresContainer = new PostgreSqlBuilder()
+            .WithUsername(dbUsername)
+            .WithPassword(dbPassword)
+            .WithDatabase(dbName)
+            .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(5432))
+            .Build();
+
+        await _postgresContainer.StartAsync();
+        var connectionString = _postgresContainer.GetConnectionString();
+
+        _factory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureServices(services =>
+                {
+                    var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
+                    if(descriptor != null)
+                        services.Remove(descriptor);
+
+                    services.AddDbContext<AppDbContext>(options =>
+                    {
+                        options.UseNpgsql(connectionString);
+                    });
+                });
+            });
+        
+        _client = _factory.CreateClient();
+    }
+
+    public async Task DisposeAsync()
+    {
+        await _postgresContainer.StopAsync();
+    }
+}
+```
+
+In this class, we are creating a new instance of Postgresql container with predefined username, password and database name. We are also setting a wait strategy that will wait until the Postgresql port is available. There is more configuration options available in `PostgresqlBuilder` object, so that you can prepare container to suit you use-case. The container is started in `InitializeAsync` method and stopped in `DisposeAsync` method, which are part of `IAsyncLifetime` interface.
+
+We are also creating a new instance of `WebApplicationFactory` that will host our test instance of API and configuring the `AppDbContext` to use the connection string from the Postgresql container. To wrap this up, we are creating a new `HttpClient` that will be used in our tests to make requests to app endpoints.
+
+Then we are ready to create first test method that will use the container:
+
+```csharp
+public class PreconfiguredContainerIntegrationTests : PreconfiguredContainerIntegrationTestBase
+{
+    [Fact]
+    public async Task TestWeatherForecastEndpoint()
+    {
+        // Arrange
+        var weatherForecast = new WeatherForecast(new DateOnly(2021, 1, 1), 25, "Sunny");
+        SeedWeatherEntities(weatherForecast); // helper method to seed the database
+
+        // Act
+        var response = await _client.GetAsync("/weatherforecast");
+
+        // Assert
+        response.EnsureSuccessStatusCode();
+
+        var actualForecasts = await response.Content.ReadFromJsonAsync<WeatherForecast[]>();
+        Assert.NotNull(actualForecasts);
+        Assert.Single(actualForecasts);
+        Assert.Equal(weatherForecast.Date, actualForecasts[0].Date);
+        Assert.Equal(weatherForecast.TemperatureC, actualForecasts[0].TemperatureC);
+        Assert.Equal(weatherForecast.Summary, actualForecasts[0].Summary);
+    }
+}
+```
+
+This simple tests checks whether the API resposne is successful and asserts few properties of the weather forecast object. The `SeedWeatherEntities` method is a helper method that seeds the database with the provided weather forecast object.
+
+For this test, `xUnit` will create a new instance of `PreconfiguredContainerIntegrationTests` class, which will start a new container, set up test API instance and run the test method. After the test method is finished, the container will be stopped and disposed. If there are more test methods in the same class, the containers will be created and disposed for each of them, so each test will have it's own instance of the container. Thanks to that you can be sure that the tests are isolated from each other and won't interfere with each other.
+
+Now you can run the tests by executing `dotnet test` command in the test project directory. The tests should pass and you can be sure that your API works correctly with the Postgresql database.
+
+## Custom containers
+
+In previous example I used already provided Postgresql container, but what if what you want to use is not available in the TestContainers library? Thankfully, TestContainers allow you to create your own custom container by providing a Dockerfile or configuration in the code. Here is an example of how you can create the same Postgresql container as in the previous example, but this time using custom container defined purely in the code:
+
+```csharp
+public class CustomContainerIntegrationTestBase : IAsyncLifetime
+{
+    protected HttpClient _client;
+    private IContainer _postgresContainer;
+    private WebApplicationFactory<Program> _factory;
+
+    private readonly string dbUsername = "testuser";
+    private readonly string dbPassword = "testpassword";
+    private readonly string dbName = "testdb";
+    private readonly int port => 5432;
+
+    public async Task InitializeAsync()
+    {
+        _postgresContainer = new ContainerBuilder()
+            .WithImage("postgres:latest")
+            .WithPortBinding(port, true)
+            .WithEnvironment("POSTGRES_USER", dbUsername)
+            .WithEnvironment("POSTGRES_PASSWORD", dbPassword)
+            .WithEnvironment("POSTGRES_DB", dbName)
+            .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(port))
+            .Build();
+
+        await _postgresContainer.StartAsync();
+        var connectionString = $"Host={_postgresContainer.Hostname};Port={_postgresContainer.GetMappedPublicPort(port)};Database={dbName};Username={dbUsername};Password={dbPassword}";
+
+        _factory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder =>
+            {
+              // .... code omitted for brevity
+            });
+        
+        _client = _factory.CreateClient();
+    }
+
+    public async Task DisposeAsync()
+    {
+        await _postgresContainer.StopAsync();
+    }
+}
+```
+
+When building custom container, you can use `ContainerBuilder` type to specify what image you want to use, what ports you want to expose, what environment variables you want to set and much more - you can check the list of available configuration methods [in the docs](https://dotnet.testcontainers.org/api/create_docker_container/). The rest of the code is the same as in the previous example, so you can reuse the same test methods. Running `dotnet test` should produce the same results as before, but this time the Postgresql container is created based on the configuration provided in the code.
+
+## Dockerfile containers
+
+If you don't want to configure custom container in code, you are free to use Dockerfile to build the image and then use it in the tests. Here is an example of how you can do it:
+
+```csharp
+var postgresImage = new ImageFromDockerfileBuilder()
+    .WithDockerfileDirectory(CommonDirectoryPath.GetSolutionDirectory(), "TestContainersExample.Tests")
+    .WithDockerfile("PostgresqlDockerfile")
+    .WithName("dockerfile-postgres")
+    .Build();
+await postgresImage.CreateAsync();
+
+_postgresContainer = new ContainerBuilder()
+    .WithImage(postgresImage)
+    .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(5432))
+    .Build();
+
+await _postgresContainer.StartAsync();
+```
+
+This time, you need to provide a path to Dockerfile and programatically build Docker image out of it, and then run it as container similarly as in previous examples.
+
+By using custom code configuration or custom Dockerfile you can create any container you want for the purpose of integration testing, so you can be sure that your tests are as close to the real-world environment as possible. 
+
+## Final thoughts
+
+Having the ability to run integration tests against tangible dependancies is a great advantage, and TestContainers library makes it easy to achieve. Have in mind, that you are not limited to a single container - you can create as many container for your tests as you need. If you need Redis instance to test your caching layer, just have at it. Message broker for your messaging system? No problem. You can even create a network of containers that will communicate with each other, so you can test the whole system in one go.
+
+TestContainers is a great addition to your testing toolbox, so I encourage you to give it a try in your next project.
