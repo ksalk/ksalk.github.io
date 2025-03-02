@@ -11,6 +11,7 @@ So, why not run your tests against the real database engine or messaging broker?
 With TestContainers library, you can do just that. Spinning up a tangible instance of a database for the lifetime of your tests requires only a few lines of code.
 
 But before we start, all code examples in this post are available in [my GitHub repository](https://github.com/ksalk/blog-code-samples/tree/main/src/2025/test-containers) so feel free to clone it and check it out locally.
+
 ## What's so great about TestContainers?
 
 TestContainers is a .NET library that allows you to programmatically manage Docker images and containers for the purpose of integration testing. It lets you create and dispose containers of common, predefined images as well as custom Docker images, built based on your Dockerfile or configuration provided in the code.
@@ -144,7 +145,7 @@ public class CustomContainerIntegrationTestBase : IAsyncLifetime
     private readonly string dbUsername = "testuser";
     private readonly string dbPassword = "testpassword";
     private readonly string dbName = "testdb";
-    private readonly int port => 5432;
+    private static int port => 5432;
 
     public async Task InitializeAsync()
     {
