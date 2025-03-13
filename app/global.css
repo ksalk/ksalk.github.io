@@ -96,78 +96,12 @@ html {
   @apply text-gray-500 text-sm font-normal;
 }
 
-/* .main-link:hover {
-  @media (prefers-color-scheme: light) {
-    text-decoration-color: var(--accent-color);
-  }
-} */
-
 .name-title {
   @apply  text-3xl font-bold;
 }
 
 section a {
   @apply font-bold;
-}
-
-/* section a {
-  @apply underline underline-offset-4 decoration-[0.1em];
-  @apply font-medium;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-secondary-color);
-    text-decoration-color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--accent-color);
-  }
-} */
-
-/* content classes */
-/* section a {
-  @apply underline underline-offset-4 decoration-[0.1em];
-  @apply font-medium;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-secondary-color);
-    text-decoration-color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--secondary-color);
-    text-decoration-color: var(--secondary-color);
-  }
-}
-
-section a:hover {
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--accent-color);
-  }
-}
-
-.prose a {
-  @apply underline underline-offset-4 decoration-[0.1em];
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-secondary-color);
-    text-decoration-color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--secondary-color);
-    text-decoration-color: var(--secondary-color);
-  }
-}
-
-.prose a:hover {
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--accent-color);
-    text-decoration-color: var(--accent-color);
-  }
 }
 
 code:not(pre code) {
