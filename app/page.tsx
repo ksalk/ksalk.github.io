@@ -11,6 +11,16 @@ export default function Page() {
 
   return (
     <section>
+      <div className="mobile flex justify-center mb-4">
+        <Image
+          src={imageData.src}
+          alt={imageData.title}
+          width={imageData.width}
+          height={imageData.height}
+          className="nav-image rounded-full"
+          />
+      </div>
+
       <div className="flex items-center mb-16">
         <div className='flex-auto'>
           <h1 className="name-title align-middle mb-8">
@@ -29,7 +39,7 @@ export default function Page() {
           alt={imageData.title}
           width={imageData.width}
           height={imageData.height}
-          className="nav-image flex-none rounded-full mr-5 grayscale-25"
+          className="desktop nav-image flex-none rounded-full mr-5"
         />
       </div>
       

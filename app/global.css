@@ -46,6 +46,18 @@ html {
   font-family: var(--font-geist-sans);
 }
 
+@media (min-width: 799px) {
+  .mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 799px) {
+  .desktop {
+    display: none;
+  }
+}
+
 .bg {
   @media (prefers-color-scheme: light) {
     background-color: #fafafa;
