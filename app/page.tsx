@@ -1,15 +1,39 @@
 import { BlogPosts } from 'app/components/posts'
+import Image from 'next/image'
 
 export default function Page() {
+  const imageData = {
+    src: '/images/me.jpg',
+    title: 'me',
+    width: 120,
+    height: 120,
+  };
+
   return (
     <section>
-      <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-        average dotnet enjoyer
-      </h1>
-      <p className="mb-4">
-        {`I like to build stuff in dotnet. Check out my ramblings below.`}
-      </p>
-      <div className="my-8">
+      <div className="flex items-center mb-16">
+        <div className='flex-auto'>
+          <h1 className="name-title align-middle mb-8">
+            Konrad Sałkowski
+          </h1>
+          <p>
+            {`Hi! I like to build stuff in dotnet and explore latest tech developments.`}
+          </p>
+          <p>
+            {`Check out my ramblings below.`}
+          </p>
+        </div>
+        
+        <Image
+          src={imageData.src}
+          alt={imageData.title}
+          width={imageData.width}
+          height={imageData.height}
+          className="nav-image flex-none rounded-full mr-5 grayscale-25"
+        />
+      </div>
+      
+      <div>
         <BlogPosts />
       </div>
     </section>

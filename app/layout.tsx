@@ -8,8 +8,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
 
-
-
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
@@ -49,7 +47,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={cx(
-        'text-black dark:text-white dark:bg-dark',
+        'bg dark:bg-dark',
         GeistSans.variable,
         GeistMono.variable
       )}
@@ -61,7 +59,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased max-w-3xl mx-4 mt-8 lg:mx-auto flex flex-col min-h-screen">
         <Navbar />
-        <main className="flex-1 min-w-0 mt-6 flex flex-col px-2 md:px-0">
+        <main className="flex-1 min-w-0 mt-6 flex flex-col px-2 md:px-0 pt-8">
           {children}
         </main>
         <Footer />

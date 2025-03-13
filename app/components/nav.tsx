@@ -1,15 +1,14 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 const navItems = {
   '/': {
-    name: 'home',
+    name: 'Home',
   },
   '/blog': {
-    name: 'blog',
+    name: 'Blog',
   },
   '/about': {
-    name: 'about',
+    name: 'About',
   },
 }
 
@@ -22,27 +21,27 @@ export function Navbar() {
   };
 
   return (
-    <aside className="-ml-[8px] mb-16 tracking-tight">
+    <aside className="-ml-[8px] mb-4 tracking-tight">
       <div className="lg:sticky lg:top-20">
         <nav
           className="flex flex-row items-start relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
           id="nav"
         >
-          <div className="flex flex-row w-full items-center space-x-0 pr-10">
+          <div className="flex flex-row w-full items-center space-x-0 pr-5">
             {Object.entries(navItems).map(([path, { name }]) => {
               return (
                 <Link
                   key={path}
                   href={path}
-                  className="main-link transition-all flex align-middle relative py-1 px-2 m-1 text-lg font-medium"
+                  className="main-link flex align-middle relative py-1 px-2 m-1"
                 >
                   {name}
                 </Link>
               )
             })}
-            <div className="ml-auto transition-all flex align-middle relative py-1 px-2">
+            <div className="ml-auto flex align-middle relative py-1 px-2">
               <a
-                className="main-link flex items-center transition-all"
+                className="main-link flex items-center"
                 rel="noopener noreferrer"
                 target="_blank"
                 href="https://github.com/ksalk"
@@ -50,20 +49,13 @@ export function Navbar() {
                 <p className="h-7 font-medium text-2xl"><i className="fa-brands fa-github"></i></p>
               </a>
               <a
-                className="main-link flex items-center transition-all"
+                className="main-link flex items-center"
                 rel="noopener noreferrer"
                 target="_blank"
                 href="https://www.linkedin.com/in/konrad-salkowski/"
               >
-                <p className="ml-4 mr-8 h-7 font-medium text-2xl"><i className="fa-brands fa-linkedin"></i></p>
+                <p className="ml-4 h-7 font-medium text-2xl"><i className="fa-brands fa-linkedin"></i></p>
               </a>
-              <Image
-                src={imageData.src}
-                alt={imageData.title}
-                width={imageData.width}
-                height={imageData.height}
-                className="nav-image"
-              />
             </div>
           </div>
         </nav>

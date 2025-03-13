@@ -18,7 +18,7 @@
 
   /* custom colors */
   --secondary-color: var(--color-sky-400);
-  --accent-color: var(--color-sky-600);
+  --accent-color: #008080;
 
   --dark-accent-color: var(--color-cyan-500);
   --dark-secondary-color: #e2feff;
@@ -38,67 +38,93 @@
 
 /* Custom classes *********** */
 
-.dark\:bg-dark {
-  @media (prefers-color-scheme: dark) {
-    @apply bg-slate-700 from-slate-700 to-slate-800
-  }
+/* ::selection {
+  background: var(--accent-color);
+} */
+
+html {
+  font-family: var(--font-geist-sans);
+}
+
+.bg {
   @media (prefers-color-scheme: light) {
-    @apply from-white to-indigo-100
+    background-color: #fafafa;
+    color: black;
   }
 
-  @apply bg-fixed bg-gradient-to-br
+  @media (prefers-color-scheme: dark) {
+    background-color: #1f1f1f;
+    color: white;
+  }
 }
 
 /* navbar classes */
-aside a {
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--accent-color);
-  }
-}
-
-aside a:hover {
-  @media (prefers-color-scheme: dark) {
-    color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    color: var(--accent-color);
-  }
-}
 
 .main-link {
-  @apply underline underline-offset-8 decoration-[0.1em];
+  @apply font-medium;
+}
+
+.main-link:hover {
+  @apply text-gray-400 animate-none;
+
+  @media (prefers-color-scheme: light) {
+    color: var(--color-gray-600);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--color-gray-400);
+  }
+}
+
+.blog-list-title {
+  @apply tracking-tight text-2xl font-bold mb-1;
+}
+
+.blog-list-desc {
+  @apply text-gray-400 w-4/5 text-sm mb-1 font-normal;
+
+  @media (prefers-color-scheme: light) {
+    color: var(--color-gray-600);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--color-gray-400);
+  }
+}
+
+.blog-list-date {
+  @apply text-gray-500 text-sm font-normal;
+}
+
+/* .main-link:hover {
+  @media (prefers-color-scheme: light) {
+    text-decoration-color: var(--accent-color);
+  }
+} */
+
+.name-title {
+  @apply  text-3xl font-bold;
+}
+
+section a {
+  @apply font-bold;
+}
+
+/* section a {
+  @apply underline underline-offset-4 decoration-[0.1em];
+  @apply font-medium;
 
   @media (prefers-color-scheme: dark) {
     color: var(--dark-secondary-color);
     text-decoration-color: var(--dark-accent-color);
   }
   @media (prefers-color-scheme: light) {
-    color: var(--secondary-color);
-    text-decoration-color: var(--secondary-color);
+    color: var(--accent-color);
   }
-}
-
-.main-link:hover {
-  @media (prefers-color-scheme: light) {
-    text-decoration-color: var(--accent-color);
-  }
-}
-
-.nav-image {
-  @apply mt-4 mb-4 rounded-full outline-2 outline-offset-4 hover:outline-4;
-  @media (prefers-color-scheme: dark) {
-    outline-color: var(--dark-accent-color);
-  }
-  @media (prefers-color-scheme: light) {
-    outline-color: var(--secondary-color);
-  }
-}
+} */
 
 /* content classes */
-section a {
+/* section a {
   @apply underline underline-offset-4 decoration-[0.1em];
   @apply font-medium;
 
@@ -153,7 +179,7 @@ code:not(pre code) {
   @media (prefers-color-scheme: light) {
     background-color: #ffffff;
   }
-}
+} */
 
 /* Custom classes end *********** */
 
