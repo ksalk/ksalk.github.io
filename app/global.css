@@ -110,6 +110,10 @@ html {
 
 .name-title {
   @apply  text-3xl font-bold;
+
+  @media (max-width: 799px) {
+      @apply text-center;
+  }
 }
 
 section a {
