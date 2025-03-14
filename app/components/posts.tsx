@@ -30,7 +30,7 @@ export function BlogPosts() {
                   {post.metadata.summary}
                 </p>
                 <p className="blog-list-date">
-                  {formatDate(post.metadata.publishedAt)}
+                  {post.metadata.publishedAt}
                 </p>
               </Link>
             </div>
