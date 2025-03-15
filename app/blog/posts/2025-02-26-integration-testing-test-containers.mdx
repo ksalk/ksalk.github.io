@@ -22,7 +22,7 @@ You can find more information about TestContainers library and its documentation
 
 To use TestContainers in your project, you need to have Docker running on your machine. You can make sure that it's up by running `docker info` in command line. If Docker is running, this will display detailed information about the Docker daemon.
 
-The next step is adding the TestContainers NuGet package to your test project - I'm using `xUnit`. In my example, I will be creating temporary instances of Postgresql database for the integrations tests, so I will also add a package that contains predefined Postgresql test containers. You can do this by running the following command in terminal in test project directory:
+The next step is adding the TestContainers NuGet package to your test project. In my example, I will be creating temporary instances of Postgresql database for the integration tests, so I will also add a package that contains predefined Postgresql test containers. You can do this by running the following command in terminal in test project directory:
 
 ```bash
 dotnet add package TestContainers
