@@ -127,7 +127,7 @@ html {
 }
 
 section a {
-  @apply font-bold;
+  @apply font-bold underline;
 }
 
 code:not(pre code) {
