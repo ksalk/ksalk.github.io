@@ -9,9 +9,9 @@ export default function Page() {
 
   return (
     <section>
-      <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
+      {/* <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
         about me
-      </h1>
+      </h1> */}
       <p className="mb-4">
         {`I'm Konrad Sałkowski, a .NET developer located in Warsaw PL.`}
       </p>
