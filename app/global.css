@@ -70,7 +70,7 @@ html {
   }
 }
 
-/* navbar classes */
+/* Custom classes */
 
 .main-link {
   @apply font-medium;
@@ -124,6 +124,10 @@ html {
   @media (max-width: 799px) {
       @apply text-center;
   }
+}
+
+section p {
+  @apply text-justify;
 }
 
 section a {
