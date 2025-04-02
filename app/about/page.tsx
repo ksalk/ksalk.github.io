@@ -9,23 +9,19 @@ export default function Page() {
 
   return (
     <section>
-      {/* <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-        about me
-      </h1> */}
       <p className="mb-4">
-        {`I'm Konrad Sałkowski, a .NET developer located in Warsaw PL.`}
+        {`Hey! I'm Konrad Sałkowski, a .NET developer based in Warsaw, Poland. I've spent over a decade in the .NET ecosystem, designing and building reliable, high-performance applications, specializing in APIs and backend systems. My passion extends beyond the daily grind - I'm constantly investigating the latest tech trends, exploring cloud technologies, and keeping a close eye on the evolution of AI.`}
       </p>
       <p className="mb-4">
-        {`I'm a software engineer that dabbles with coding since 2010. I specialize in .NET tech stack, building APIs and backend systems, but I'm always open to learn and make use of any technology that will help me in my projects.
-        My main interests lie in software architecture, optimization and algorithms. I follow the latest developments in IT industry and try to keep up with the newest technologies and development philosophies.`}
-      </p>
-      <p className="mb-4">
-        {`If you want more info about my professional career, check out my `}
+        {`Throughout my career, I've worked in several companies, mainly contributing to the development of cloud-based back-office and internal systems. I strive to be a valuable team member, not only through my technical contributions but also by fostering positive dev culture within the projects I've been involved in. Keeping up with new technologies and evolving development practices is a key part of my work. You can find more about my professional experience and connect with me on `}
         <Link
           href="https://www.linkedin.com/in/konrad-salkowski/">
-          linkedin page
+          LinkedIn
         </Link>
         {`.`}
+      </p>
+      <p className="mb-4">
+        {`This blog is where I share insights, challenges, and discoveries from my dev journey. Expect deep dives into .NET, new technologies, and real-world problems I’ve tackled. Stick around!`}
       </p>
     </section>
   )
