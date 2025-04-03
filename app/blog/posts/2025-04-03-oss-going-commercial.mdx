@@ -1,0 +1,96 @@
+---
+title: 'AutoMapper, MediatR & MassTransit go commercial' 
+summary: 'More OSS libraries are going commercial. Is it a trend?'
+tags: '.NET, open-source'
+---
+
+In the past few days we got hit with pretty spooky announcements. Jimmy Boggard posted an article on his blog, stating that he will be commercializing both AutoMapper (yuck) and MediatR. He hasn't yet figured out the details of how he will approach that change and when will this happen, but it's going to happen. Then, just few hours later, another article was dropped - MassTransit is also going commercial, starting with version 9. In this case we have more specifics of the funding model - it is going to be a subscription-based with monthly and annual options. Monthly cost will vary based on the business size, ranging from $400 to $1200 USD per month.
+
+Few months ago, we also "lost" another OSS library, FluentAssertions. This popular asserting package is paid from version 8 onward. Moq, on the other hand, introduced analyzer into the library, called SponsorLink, that extracts your email address from IDE and checks whether user is a sponsor on GitHub. If not, you are affected by few seconds of pause during build and a compiler warning.
+
+What's happening with the open source libraries landscape? Are we going to see more and more popular third party packages go commercial? Is this uniquely .NET issue? Is this something we should be concerned about?
+
+## Everybody’s gotta make money
+
+Should OSS always be free?
+
+I don't think we should be surprised that devs, who spend their precious time on a piece of software used for free by individuals and organizations, with millions of downloads worldwide, are looking for a way to support themselves financially. Maintainers are providing immense amount of value for free and the decision to be paid for your work is perfectly reasonable. We can argue about financing model, but I think we can all agree that working for free is just not sustainable. Especially when your work is used by large organizations, making loads of money thanks to it, while returning none of it to the author.
+
+FluentAssertions decided to charge fixed annual price per developer in organization, MassTransit also chose subscription model based on company scale. What are the options to financially support projects maintainers and which are fair for both author and users?
+
+## Finding the right approach
+
+The simplest form of funding are direct donations. Many authors rely on that, but it's not reliable source of income. FluentValidations author, Jeremy Skinner, posted on X in 2023, that's he is getting $31 per month from donations, while his library has over 600 millions downloads...
+
+Some authors earn money from organizations via consulting, resolving specific issues in their packages or implementing needed features, but it's also not consistent form of funding. Others are funded by major organisations like Microsoft, which started https://github.com/microsoft/foss-fund, that spend $12 500 USD quarterly on sponsoring OSS projects, but you need to get lucky to get on that list.
+
+The most suitable option, in my opinion, is mixed model of free tier for hobbyists and personal projects and paid plan for organizations that use OSS projects and are of sufficient size or income. This way, author receives a steady income for their effort that is substantially larger than relying on GitHub sponsors on donations. This paid plan does not have to be an extraordinary amount of money, certainly no $130 USD per developer which FluentAssertions wanted to charge for their library. It is really great library for making your assertions descriptive, I've been happily using it in my projects, but it's almost the same price as Rider subscription. Charging reasonable prices can still add up to significant amount regularly delivered into maintainer bank account, if the tool is popular and widely used.
+
+## What to do now?
+
+If you are using these libraries in your personal projects or at work, you might wonder what should you do now? How should you approach this transition in you dev life?
+
+You can stay with current versions of mentioned packages, as they will stay free and open source. Most likely, this will be the default approach. Until the need to pivot to something else occurs, you can safely use free versions or possibly forks that someone decides to create and maintain - it will take time for best forks to emerge. If you don't want to bother with looking for alterniatives, that's fine, just remember to not upgrade dependencies to paid versions by accident. Setting up a company-wide CI policy that checks builds for usage of paid dependencies might be a good idea.
+
+But if you want to switch, here's some alternatives you can consider. Altought I highly encourage you to think whether you really need those dependencies. Oftentimes we use it without giving it deeper thought, but we can certainly do without them.
+
+Let's start with *AutoMapper* - if you haven't yet moved from it long time ago, you're already cooked. It had it's time of glory, it has it's narrow use case, but people are using it wildly. It brings multiple problems - implicit references making refactoring problematic, no way to step through code while debugging, moving compiler errors to runtime errors...
+
+My suggestion is simple extension methods, mapping does not really require some fancy configuration. Having dedicated mapping extension methods is effective, gets the job done and you can easily debug it.
+
+```csharp
+public static class UserMappingExtensions
+{
+    public static UserDto ToDto(this User user)
+    {
+        if (user == null) return null;
+
+        return new UserDto
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email
+        };
+    }
+
+}
+```
+
+If you are really need an alternative mapping library, I can recommend Mapster - it is fast, lightweight mapping library that uses source generation so it's easier time debugging.
+
+MediatR is a tougher nut to crack, but if you are using it simply to decouple your code, it's easy to implement similar solution on your own. You can create your own IRequestHandler interface and implement handlers with single class-single use case principle in mind. Those handlers are injected directly into your endpoint methods using `[FromServices]` decorator.
+
+```csharp
+public interface IHandler<TRequest>
+{
+    Task Handle(TRequest request);
+}
+
+public record SaveTodoItemRequest(string Name, string Description);
+
+public class SaveTodoItemHandler : IHandler<SaveTodoItemRequest>
+{
+    public async Task Handle(SaveTodoItemRequest request)
+    {
+        // save todo item to db
+    }
+}
+
+[ApiController]
+[Route("[controller]")]
+public class  TodoItemController : ControllerBase
+{
+    [HttpPost]
+    public async Task<IActionResult> SaveTodoItem(
+          [FromServices] IHandler<SaveTodoItemRequest> handler, 
+          [FromBody] SaveTodoItemRequest request)
+    {
+        await handler.Handle(request);
+        return Ok();
+    }
+}
+```
+
+If you are using pipeline behaviours, things get little more complicated, but you handlers can inherit from base class that adds common behaviour like logging or exception handling. 
+
+If you still want to use something similar to MediatR, consider Mediator or Wolverine libraries.
