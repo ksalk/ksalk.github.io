@@ -27,7 +27,7 @@ export default function Page() {
             Konrad Sałkowski
           </h1>
           <p>
-            {`Hello! I like to build stuff in dotnet and explore latest tech developments.`}
+            {`I like to build stuff in dotnet and explore latest tech developments.`}
           </p>
           <p>
             {`Check out my ramblings below.`}
