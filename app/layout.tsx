@@ -65,6 +65,8 @@ export default function RootLayout({
         <Footer />
         <Analytics />
         <SpeedInsights />
+        {/* CloudFlare web analytics */}
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "24c9f12ab74e416698eff0ed2ecba26e"}'></script>
       </body>
     </html>
   )
