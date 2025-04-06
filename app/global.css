@@ -141,20 +141,10 @@ section a {
     background-color: rgb(40, 42, 54);
   }
   @media (prefers-color-scheme: light) {
-    background-color: #ffffff;
+    background-color: rgb(40, 42, 54);
+    color: white;
   }
 }
-
-/* code:not(pre code) {
-  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg px-1 py-0.5;
-  
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--color-neutral-900, #171717);
-  }
-  @media (prefers-color-scheme: light) {
-    background-color: #ffffff;
-  }
-} */
 
 /* Custom classes end *********** */
 
