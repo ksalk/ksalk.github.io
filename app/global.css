@@ -89,7 +89,7 @@ html {
 }
 
 .blog-list-title {
-  @apply tracking-tight text-2xl font-bold mb-1;
+  @apply tracking-tighter text-2xl font-semibold mb-1;
 }
 
 .blog-list-title:hover {
