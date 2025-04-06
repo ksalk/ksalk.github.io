@@ -135,7 +135,7 @@ section a {
 }
 
 .prose code {
-  @apply px-1 py-1 rounded-lg;
+  @apply px-1.5 py-1 rounded-lg;
 
   @media (prefers-color-scheme: dark) {
     background-color: rgb(40, 42, 54);
