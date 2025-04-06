@@ -134,7 +134,18 @@ section a {
   @apply font-bold underline;
 }
 
-code:not(pre code) {
+.prose code {
+  @apply px-1 py-1 rounded-lg;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(40, 42, 54);
+  }
+  @media (prefers-color-scheme: light) {
+    background-color: #ffffff;
+  }
+}
+
+/* code:not(pre code) {
   @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg px-1 py-0.5;
   
   @media (prefers-color-scheme: dark) {
@@ -176,14 +187,6 @@ html {
 
 .prose *:hover > .anchor {
   @apply visible;
-}
-
-.prose pre {
-  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
-}
-
-.prose code {
-  @apply px-1 py-0.5 rounded-lg;
 }
 
 .prose pre code {
@@ -237,15 +240,6 @@ html {
   /* Override removing top margin, causing layout shift */
   margin-top: 1.25em !important;
   margin-bottom: 1.25em !important;
-}
-
-pre::-webkit-scrollbar {
-  display: none;
-}
-
-pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 }
 
 /* Remove Safari input shadow on mobile */

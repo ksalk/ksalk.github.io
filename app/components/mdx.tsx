@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import { highlight } from 'sugar-high'
+import { Prism } from "react-syntax-highlighter";
+import codeStyle from 'react-syntax-highlighter/dist/esm/styles/prism/dracula';
 import React from 'react'
 
 function Table({ data }) {
@@ -48,9 +49,18 @@ function RoundedImage(props) {
   return <Image alt={props.alt} className="rounded-lg" {...props} />
 }
 
-function Code({ children, ...props }) {
-  let codeHTML = highlight(children)
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
+function Code({ children, className, ...props }) {
+  if(!className) { // inline code
+    return <code {...props}>{children}</code>
+  }
+
+  return <Prism style={codeStyle} showLineNumbers={true} language={'csharp'} {...props}>{removeLastLine(children)}</Prism>;
+}
+
+function removeLastLine(code) {
+  let lines = code.split('\n')
+  lines.pop()
+  return lines.join('\n')
 }
 
 function slugify(str) {
