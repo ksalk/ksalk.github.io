@@ -15,6 +15,23 @@ export const metadata: Metadata = {
     template: 'ksalk | %s',
   },
   description: 'ksalk - devblog',
+  keywords: [
+    'ksalk',
+    'konrad sałkowski',
+    'devblog',
+    'dotnet',
+    'csharp',
+    '.net',
+    'programming',
+    'software development',
+    'web development',
+    'blog'
+  ],
+  authors: [
+    { name: 'Konrad Sałkowski', url: baseUrl },
+    { name: 'ksalk', url: baseUrl }
+  ],
+  creator: 'Konrad Sałkowski',
   openGraph: {
     title: 'ksalk - devblog',
     description: 'ksalk - devblog',
