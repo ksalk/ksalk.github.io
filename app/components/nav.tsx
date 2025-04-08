@@ -44,9 +44,17 @@ export function Navbar() {
                 className="main-link flex items-center"
                 rel="noopener noreferrer"
                 target="_blank"
+                href="https://x.com/KonradSalkowski"
+              >
+                <p className="h-7 font-medium text-2xl"><i className="fa-brands fa-x-twitter"></i></p>
+              </a>
+              <a
+                className="main-link flex items-center"
+                rel="noopener noreferrer"
+                target="_blank"
                 href="https://github.com/ksalk"
               >
-                <p className="h-7 font-medium text-2xl"><i className="fa-brands fa-github"></i></p>
+                <p className="ml-4 h-7 font-medium text-2xl"><i className="fa-brands fa-github"></i></p>
               </a>
               <a
                 className="main-link flex items-center"

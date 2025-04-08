@@ -69,7 +69,7 @@ export default function RootLayout({
       )}
     >
       <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
         {/* Favicon font: Ceviche One by Font Diner, licensed under SIL Open Font License 1.1 */}
         <link rel="icon" href="/favicon.ico" />
       </head>
