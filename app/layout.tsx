@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     default: 'ksalk | Konrad Sałkowski - devblog',
     template: 'ksalk | %s',
   },
-  description: 'ksalk - devblog',
+  description: 'ksalk - Konrad Sałkowski\'s devblog covering .NET, software and IT topics',
   keywords: [
     'ksalk',
     'konrad sałkowski',
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     'csharp',
     '.net',
     'programming',
+    'software',
     'software development',
     'web development',
     'blog'
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   creator: 'Konrad Sałkowski',
   openGraph: {
     title: 'ksalk - devblog',
-    description: 'ksalk - devblog',
+    description: 'ksalk - Konrad Sałkowski\'s devblog covering .NET, software and IT topics',
     url: baseUrl,
     siteName: 'ksalk - devblog',
     locale: 'en_US',
