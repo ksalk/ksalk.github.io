@@ -3,8 +3,6 @@ import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
 
@@ -80,8 +78,6 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        <Analytics />
-        <SpeedInsights />
         {/* CloudFlare web analytics */}
         <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "24c9f12ab74e416698eff0ed2ecba26e"}'></script>
       </body>
