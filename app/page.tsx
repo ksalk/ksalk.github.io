@@ -44,7 +44,7 @@ export default function Page() {
       </div>
       
       <div>
-        <BlogPosts />
+        <BlogPosts limit={5} />
       </div>
     </section>
   )
