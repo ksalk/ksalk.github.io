@@ -3,3 +3,46 @@ title: 'Improved DB exceptions handling in EF Core'
 summary: 'Upgrade your code with strongly typed EF exceptions for better error handling.'
 tags: '.NET, EntityFramework, DB'
 ---
+
+Have you ever encountered a `DbUpdateException` thrown by Entity Framework, while trying to save your changes to the database, wondering what went wrong? This exception does not provide much information about the underlying issue on its own - in order to figure out the root cause, you need to drop a breakpoint on failing code and inspect the inner exception, which contains the actual error message. It is also thrown in multiple different scenarios, on failing unique constraint check, inserting NULL in non-nullable column etc. Having all of these problems handled using single exception type is inconvenient. Maybe your code could resolve some of these issues if you had more knowledge about the error that occurred? Maybe your logs could me more informative if they contained specific error messages instead of generic ones?
+
+# Strongly Typed EF Exceptions
+
+Thankfully, developer Giorgi Dalakishvili fixed this problem in his [EntityFramework.Exceptions](https://github.com/Giorgi/EntityFramework.Exceptions) library. It provides strongly typed exceptions for common database errors, such as unique constraint violations, foreign key violations, and more. This allows you to handle specific exceptions in your code, providing better error handling and clearer logs. No more DbUpdateException with generic error messages!
+
+After adding the library to your project, your EF code will throw descriptive exceptions like `UniqueConstraintException`, `CannotInsertNullException` and few others, giving you the ability to catch them and handle them accordingly. Depending on your use case, you can return more detailed error message to the user performing the action or maybe retry the operation that would otherwise result in failure.
+
+# Example Usage
+
+To use the library, you need to install the NuGet package `EntityFramework.Exceptions`, dedicated for your database provider. For SQL Server you can run the following command in your terminal, in the directory of project where you use Entity Framework:
+
+```bash
+dotnet add package EntityFrameworkCore.Exceptions.SqlServer
+```
+
+For PostgreSQL, you would use:
+
+```bash
+dotnet add package EntityFrameworkCore.Exceptions.PostgreSQL
+```
+
+All supported database providers are listed in the [GitHub repository README page](https://github.com/Giorgi/EntityFramework.Exceptions/blob/main/README.md).
+
+Once installed, you need to register the exception processor from the library in your `DbContext` class. This is done by overriding the `OnConfiguring` method and calling `UseExceptionProcessor()` on the `DbContextOptionsBuilder`. Here's an example:
+
+```csharp
+class ShopContext : DbContext
+{
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Products> Products { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseExceptionProcessor();
+    }
+}
+```
+
+And that's all. Simple and effective. No need for any additional configuration or setup. After this, you can start using the strongly typed exceptions in your code. Here's an example of how to handle a unique constraint violation:
+
+```csharp
