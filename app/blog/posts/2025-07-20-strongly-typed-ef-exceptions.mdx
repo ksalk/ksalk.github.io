@@ -46,3 +46,40 @@ class ShopContext : DbContext
 And that's all. Simple and effective. No need for any additional configuration or setup. After this, you can start using the strongly typed exceptions in your code. Here's an example of how to handle a unique constraint violation:
 
 ```csharp
+try
+{
+    using var context = new ShopContext();
+    var order = new Order { /* ... */ };
+    context.Orders.Add(order);
+    context.SaveChanges();
+}
+catch (UniqueConstraintException ex)
+{
+    // Handle unique constraint violation
+}
+catch (CannotInsertNullException ex)
+{
+    // Handle null value insertion in non-nullable column
+}
+```
+
+What's more, typed exceptions also provide additional properties that can be useful for logging or debugging. For example, `UniqueConstraintException` has a `ConstraintName` property that contains the name of the violated constraint, and `CannotInsertNullException` has a `ColumnName` property that indicates which column was attempted to be set to `NULL`. You can use these properties to provide more context in your logs or error messages.
+
+```csharp
+catch (UniqueConstraintException ex)
+{
+    logger.LogError($"Unique constraint violation: {ConstraintName}", ex.ConstraintName);
+}
+catch (CannotInsertNullException ex)
+{
+    logger.LogError($"Cannot insert null value into column {ColumnName}", ex.ColumnName);
+}
+```
+
+# Entity Framework extensibility
+
+While not everyone may need this library, maybe they don't need such granular error handling, it seems that the option to enable strongly typed exceptions in EF Core would be a great addition to the base framework. Possibly by setting a flag during `DbContext` configuration. It would allow developers to handle database errors more effectively and provide better user experience in their applications, if their use case requires it.
+
+But even if it's not included out-of-the-box, it shows how extensible Entity Framework is. By just adding a single line of code to your `DbContext`, you can change the way exceptions are handled in your application. This is a great example of how EF Core can be extended to meet specific needs, and how the community can contribute to improving the framework.
+
+For more insight into the library, I encourage you to check out [Entity Framework Community Standup episode](https://www.youtube.com/watch?v=aUl5QfswNU4) where Giorgi Dalakishvili explains the library and its features in detail. It's a great resource to understand how to use the library effectively and how it can improve your error handling in EF Core applications.
