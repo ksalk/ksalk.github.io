@@ -54,7 +54,7 @@ public class MyDbContext : DbContext
 
 ## Current limitations
 
-This approach works well, but it has some limitations. As written in the [documentation](https://learn.microsoft.com/en-us/ef/core/querying/filters?tabs=ef10): *Calling HasQueryFilter with a simple filter overwrites any previous filter, so multiple filters cannot be defined on the same entity type*. This means that if you want to apply multiple filters, you need to combine them into a single expression, which can lead to complex and hard-to-read code.
+This approach works well, but it has some restrictions. As written in the [documentation](https://learn.microsoft.com/en-us/ef/core/querying/filters?tabs=ef10): *Calling HasQueryFilter with a simple filter overwrites any previous filter, so multiple filters cannot be defined on the same entity type*. This means that if you want to apply multiple filters, you need to combine them into a single expression, which can lead to complex and hard-to-read code.
 
 What's more, if you want to disable the global filter for a specific query, you need to use the `IgnoreQueryFilters` method, but it will disable all global filters for that query - you have no control over it. So even if you have multiple filters defined (by combining them into a single expression), you cannot disable just one of them, which can lead to unexpected results.
 
