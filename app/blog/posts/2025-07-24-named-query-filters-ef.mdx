@@ -28,8 +28,10 @@ public class MyDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        foreach (var entityType in modelBuilder.Model.GetEntityTypes()
-            .Where(t => typeof(ISoftDeletable).IsAssignableFrom(t.ClrType)))
+        var softDeletableEntities = modelBuilder.Model
+            .GetEntityTypes()
+            .Where(t => typeof(ISoftDeletable).IsAssignableFrom(t.ClrType));
+        foreach (var entityType in softDeletableEntities)
         {
             modelBuilder.Entity(entityType.ClrType)
                 .HasQueryFilter(ConvertFilterExpression<ISoftDeletable>(e => !e.IsDeleted, entityType.ClrType));
@@ -63,7 +65,7 @@ public async Task<List<Product>> GetProductsAsync(bool includeDeleted = false)
 {
     IQueryable<Product> query = _context.Products;
 
-    // We want to fetch deleted/archived products as well
+    // We want to fetch deleted/archived products
     if (includeDeleted)
     {
         // This will include soft-deleted products
