@@ -67,7 +67,8 @@ public async Task<List<Product>> GetProductsAsync(bool includeDeleted = false)
     if (includeDeleted)
     {
         // This will include soft-deleted products
-        // but if there is also a multi-tenancy filter, it will be ignored as well
+        // but if there is also a multi-tenancy filter,
+        // it will be ignored as well.
         // We don't want that!
         query = query.IgnoreQueryFilters();
     }
