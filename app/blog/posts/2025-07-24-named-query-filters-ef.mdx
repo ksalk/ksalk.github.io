@@ -7,15 +7,17 @@ tags: '.NET, EntityFramework, DB'
 
 Named Query Filters support in Entity Framework Core has been requested for a long time ([as far back as 2017](https://github.com/dotnet/efcore/issues/8576)), and it is finally coming in EF Core 10. [The PR with this feature has been recently merged](https://github.com/dotnet/efcore/pull/36028) into the main branch of the EF Core repository on GitHub, and will be available with the next major release. I’m pretty excited about this one, as it will grant developers more control over shared behavior of their queries, making it easier to manage complex filtering logic.
 
-## Current limitations
+## What are global query filters?
 
-Right now, if you want to apply a global filter to your queries in EF Core, you can use the `HasQueryFilter` method on your entities configuration. This is especially useful for adding common logic across your entities, instead of duplicating filtering logic across entities. Most popular use cases for this feature include soft deletes and multi-tenancy. You can define a filter like this:
+Global query filters are a powerful feature in EF Core that allow you to define a filter applied to all queries for a specific entity type. This is useful in scenarios like soft deletes or multi-tenancy, where you want to apply shared filtering logic across your application instead of duplicating it in every database query.
+
+Right now, if you want to apply a global filter in EF Core, you can use the `HasQueryFilter` method on your entities configuration, like this:
 
 ```csharp
 modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
 ```
 
-You can also create a base class or interface (like `ISoftDeletable` or `ITenantable`) for your entities that will share the same filtering logic and apply the filter to all entities that inherit from it, during the model configuration phase.
+You can also create a base class or interface (like `ISoftDeletable` or `ITenantable`) for your entities that will share the same filtering logic and apply the filter to all entities that inherit from it, during the model configuration phase. It involves more sophisticated logic, but it allows you to keep your code DRY and maintainable. Here’s an example of how you can do that:
 
 ```csharp
 public class MyDbContext : DbContext
@@ -49,6 +51,8 @@ public class MyDbContext : DbContext
     }
 }
 ```
+
+## Current limitations
 
 This approach works well, but it has some limitations. As written in the [documentation](https://learn.microsoft.com/en-us/ef/core/querying/filters?tabs=ef10): __Calling HasQueryFilter with a simple filter overwrites any previous filter, so multiple filters cannot be defined on the same entity type__. This means that if you want to apply multiple filters, you need to combine them into a single expression, which can lead to complex and hard-to-read code.
 
