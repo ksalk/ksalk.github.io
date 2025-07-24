@@ -1,0 +1,113 @@
+---
+title: 'Named Query Filters coming with EF Core 10' 
+summary: 'Check out named query filters feature that just got merged into EF Core. More control over your queries!'
+publishedAt: '2025-07-24'
+tags: '.NET, EntityFramework, DB'
+---
+
+Named Query Filters support in Entity Framework Core has been requested for a long time ([as far back as 2017](https://github.com/dotnet/efcore/issues/8576)), and it is finally coming in EF Core 10. [The PR with this feature has been recently merged](https://github.com/dotnet/efcore/pull/36028) into the main branch of the EF Core repository on GitHub, and will be available with the next major release. I’m pretty excited about this one, as it will grant developers more control over shared behavior of their queries, making it easier to manage complex filtering logic.
+
+## Current limitations
+
+Right now, if you want to apply a global filter to your queries in EF Core, you can use the `HasQueryFilter` method on your entities configuration. This is especially useful for adding common logic across your entities, instead of duplicating filtering logic across entities. Most popular use cases for this feature include soft deletes and multi-tenancy. You can define a filter like this:
+
+```csharp
+modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+```
+
+You can also create a base class or interface (like `ISoftDeletable` or `ITenantable`) for your entities that will share the same filtering logic and apply the filter to all entities that inherit from it, during the model configuration phase.
+
+```csharp
+public class MyDbContext : DbContext
+{
+    public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
+    {
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes()
+            .Where(t => typeof(ISoftDeletable).IsAssignableFrom(t.ClrType)))
+        {
+            modelBuilder.Entity(entityType.ClrType)
+                .HasQueryFilter(ConvertFilterExpression<ISoftDeletable>(e => !e.IsDeleted, entityType.ClrType));
+        }
+    }
+
+    // Helper method to create the query filter expression
+    private static LambdaExpression ConvertFilterExpression<TInterface>(
+        Expression<Func<TInterface, bool>> filterExpression,
+        Type entityType)
+    {
+        var parameter = Expression.Parameter(entityType);
+        var body = ReplacingExpressionVisitor.Replace(
+            filterExpression.Parameters[0],
+            parameter,
+            filterExpression.Body);
+
+        return Expression.Lambda(body, parameter);
+    }
+}
+```
+
+This approach works well, but it has some limitations. As written in the [documentation](https://learn.microsoft.com/en-us/ef/core/querying/filters?tabs=ef10): __Calling HasQueryFilter with a simple filter overwrites any previous filter, so multiple filters cannot be defined on the same entity type__. This means that if you want to apply multiple filters, you need to combine them into a single expression, which can lead to complex and hard-to-read code.
+
+What's more, if you want to disable the global filter for a specific query, you need to use the `IgnoreQueryFilters` method, but it will disable all global filters for that query - you have no control over it. So even if you have multiple filters defined (by combining them into a single expression), you cannot disable just one of them, which can lead to unexpected results.
+
+```csharp
+public async Task<List<Product>> GetProductsAsync(bool includeDeleted = false)
+{
+    IQueryable<Product> query = _context.Products;
+
+    // We want to fetch deleted/archived products as well
+    if (includeDeleted)
+    {
+        // This will include soft-deleted products
+        // but if there is also a multi-tenancy filter, it will be ignored as well
+        // We don't want that!
+        query = query.IgnoreQueryFilters();
+    }
+
+    return await query.ToListAsync();
+}
+```
+
+## Fine-grained control
+
+Those issues are addressed with the new named query filters feature. It will allow you to define multiple filters for the same entity type, without overwriting existing ones. But keep in mind that if you use old syntax (without filter naming), only the last filter will be applied. To make it work, it **requires query filters to be named**, like in the following example:
+
+```csharp
+public static class GlobalFilters
+{
+    public static readonly string SoftDeleteFilter = "SoftDeleteFilter";
+    public static readonly string TenantFilter = "TenantFilter";
+}
+
+modelBuilder.Entity<Product>().HasQueryFilter(GlobalFilters.SoftDeleteFilter, p => !p.IsDeleted);
+modelBuilder.Entity<Product>().HasQueryFilter(GlobalFilters.TenantFilter, p => p.TenantId == _currentTenantId);
+```
+
+What's also cool is that you will be able to selectively disable specific filters by name, instead of disabling all of them at once! Merged changes include overload of `IgnoreQueryFilters` method, that accepts a collection of filter names to disable. For example, you can disable the soft delete filter while keeping the tenant filter in place:
+
+```csharp
+public async Task<List<Product>> GetProductsAsync(bool includeDeleted = false)
+{
+    IQueryable<Product> query = _context.Products;
+
+    // We want to fetch deleted/archived products as well
+    if (includeDeleted)
+    {
+        // This will include soft-deleted products
+        // but the tenant filter will still be applied
+        query = query.IgnoreQueryFilters([GlobalFilters.SoftDeleteFilter]);
+    }
+
+    return await query.ToListAsync();
+}
+```
+
+## Keep the good stuff coming
+
+I will always welcome new features like this one with open arms - it's not breaking any existing code, it just gives more control over your logic. You don't have to use it if you don't need it, but if you do, it will make your code cleaner and easier to maintain.
+
+Also, I highly recommend to check out [pull request with this feature](https://github.com/dotnet/efcore/pull/36028) and go through the code changes to see how it all works under the hood. It is a great example of how to implement a new feature in EF Core, and it shows how much effort is put into making it work seamlessly with existing functionality.
