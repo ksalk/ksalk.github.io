@@ -81,27 +81,27 @@
 /* Explicit theme: osaka (black + jade green) */
 [data-theme='osaka'] {
   /* Base surfaces */
-  --color-bg: #050606;           /* near black */
-  --color-bg-alt: #0b0d0d;       /* subtle raised panel */
+  --color-bg: #040807;           /* deeper near-black with faint jade undertone */
+  --color-bg-alt: #08100e;       /* subtle raised panel */
   /* Text */
-  --color-fg: #e6f5ef;           /* very light jade-tinted off-white */
-  --color-fg-muted: #89a49a;     /* desaturated jade gray */
+  --color-fg: #e3f8f1;           /* crisp light jade-tinted white */
+  --color-fg-muted: #7aa497;     /* desaturated jade gray (slightly deeper) */
   /* Borders */
-  --color-border: #1a2421;       /* dark jade edge */
-  /* Accent (jade core) */
-  --color-accent: #18c29c;       /* primary jade */
-  --color-accent-fg: #04100c;    /* readable on accent */
+  --color-border: #113d31;       /* darker jade edge */
+  /* Accent (richer jade core) */
+  --color-accent: #00a86b;       /* primary jade (#00A86B) */
+  --color-accent-fg: #012318;    /* readable on accent */
   --color-link: var(--color-accent);
-  --color-link-hover: #36d9b0;   /* brighter hover */
+  --color-link-hover: #11c784;   /* brighter hover */
   /* Code backgrounds */
-  --color-code-inline-bg: #10211d;
-  --color-code-inline-fg: #d2f2e9;
-  --color-code-block-bg: #0f1917;
-  /* Syntax highlight overrides (align with jade accent) */
-  --sh-class: #55d4b7;
-  --sh-identifier: #e6f5ef;
-  --sh-keyword: #ff8f6b; /* warm contrast */
-  --sh-string: #2dd4bf;  /* light jade */
+  --color-code-inline-bg: #0b1f19; /* slightly darker for contrast */
+  --color-code-inline-fg: #c9f4e7;
+  --color-code-block-bg: #0a1814;
+  /* Syntax highlight overrides (align with deeper jade accent) */
+  --sh-class: #32c59b;           /* balanced jade */
+  --sh-identifier: #e3f8f1;
+  --sh-keyword: #ff855d;         /* warm contrast slightly deeper */
+  --sh-string: #19d4a2;          /* lighter jade string */
   color-scheme: dark;
 }
 
@@ -223,4 +223,41 @@ table {
 
 .title {
   text-wrap: balance;
+}
+[data-theme='osaka'] .main-link {
+  color: var(--color-fg);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(0,168,107,0.5);
+}
+[data-theme='osaka'] .main-link:hover,
+[data-theme='osaka'] .main-link:focus-visible {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+  background: transparent;
+  outline: none;
+}
+/* Remove any pseudo-element remnants (defensive) */
+[data-theme='osaka'] .main-link::after { content: none !important; }
+
+/* Subtle background pill for nav links on hover/focus */
+[data-theme='osaka'] .main-link:hover,
+[data-theme='osaka'] .main-link:focus-visible {
+  background: rgba(0,168,107,0.08);
+  outline: none;
+}
+
+/* Global anchor refinement inside prose for Osaka */
+[data-theme='osaka'] .prose a {
+  text-decoration-color: rgba(0,168,107,0.6);
+}
+[data-theme='osaka'] .prose a:hover {
+  text-decoration-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Selection color tweak for Osaka */
+[data-theme='osaka'] ::selection {
+  background: #00a86b;
+  color: #ffffff;
 }
