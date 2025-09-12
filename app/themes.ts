@@ -6,7 +6,8 @@ export interface ThemeDefinition {
 // Single source of truth for available themes
 export const THEMES: ThemeDefinition[] = [
   { value: 'light', label: 'Light' },
-  { value: 'dark', label: 'Dark' }
+  { value: 'dark', label: 'Dark' },
+  { value: 'osaka', label: 'Osaka' }
 ];
 
 export const DEFAULT_THEME = 'light';
@@ -24,5 +25,5 @@ export function normalizeTheme(raw: string | null): string | null {
  * Keeps logic in one place so we don't duplicate mappings.
  */
 export function generateInlineThemeScript(): string {
-  return `(()=>{try{let s=localStorage.getItem('theme');if(!(s==='light'||s==='dark'))s='light';document.documentElement.dataset.theme=s;localStorage.setItem('theme',s);}catch(e){}})();`;
+  return `(()=>{try{let s=localStorage.getItem('theme');if(!(s==='light'||s==='dark'||s==='osaka'))s='light';document.documentElement.dataset.theme=s;localStorage.setItem('theme',s);}catch(e){}})();`;
 }
