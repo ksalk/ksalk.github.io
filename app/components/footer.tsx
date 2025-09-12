@@ -15,14 +15,19 @@ function ArrowIcon() {
   )
 }
 
+import ThemeDropdown from './theme-dropdown'
+
 export default function Footer() {
   return (
     <footer className="mb-16 mt-16">
-      <ul className="font-sm mt-8 flex flex-col space-x-0 space-y-2 text-neutral-600 md:flex-row md:space-x-4 md:space-y-0 dark:text-neutral-300">
-      </ul>
-      <p className="mt-8 text-neutral-500 dark:text-neutral-400">
-        © {new Date().getFullYear()} MIT Licensed
-      </p>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <p className="text-neutral-500 dark:text-neutral-400 order-2 md:order-1">
+          © {new Date().getFullYear()} MIT Licensed
+        </p>
+        <div className="order-1 md:order-2 ml-auto">
+          <ThemeDropdown />
+        </div>
+      </div>
     </footer>
   )
 }

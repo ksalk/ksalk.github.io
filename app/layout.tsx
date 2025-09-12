@@ -69,6 +69,12 @@ export default function RootLayout({
       )}
     >
       <head>
+        <script
+          // Prevent flash of wrong theme: runs before paint
+          dangerouslySetInnerHTML={{
+            __html: `(()=>{try{const s=localStorage.getItem('theme');if(s)document.documentElement.dataset.theme=s;}catch(e){}})();`
+          }}
+        />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
         {/* Favicon font: Ceviche One by Font Diner, licensed under SIL Open Font License 1.1 */}
         <link rel="icon" href="/favicon.ico" />

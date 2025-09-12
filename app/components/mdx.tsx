@@ -2,7 +2,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Prism } from "react-syntax-highlighter";
-import codeStyle from 'react-syntax-highlighter/dist/esm/styles/prism/dracula';
+import dracula from 'react-syntax-highlighter/dist/esm/styles/prism/dracula';
+import oneLight from 'react-syntax-highlighter/dist/esm/styles/prism/one-light';
 import React from 'react'
 
 function Table({ data }) {
@@ -54,7 +55,13 @@ function Code({ children, className, ...props }) {
     return <code {...props}>{children}</code>
   }
 
-  return <Prism style={codeStyle} showLineNumbers={true} language={'csharp'} {...props}>{removeLastLine(children)}</Prism>;
+  // Decide style based on current theme attribute; default to dracula
+  let themeAttr: string | null = null;
+  if (typeof document !== 'undefined') {
+    themeAttr = document.documentElement.dataset.theme || null;
+  }
+  const style = themeAttr === 'neutral' ? oneLight : themeAttr === 'osaka' ? dracula : (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? oneLight : dracula);
+  return <Prism style={style} showLineNumbers={true} language={'csharp'} {...props}>{removeLastLine(children)}</Prism>;
 }
 
 function removeLastLine(code) {
