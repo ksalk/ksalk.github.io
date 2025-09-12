@@ -1,10 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
-
-const THEMES = [
-  { value: 'neutral', label: 'Neutral' },
-  { value: 'osaka', label: 'Osaka' }
-];
+import { THEMES, DEFAULT_THEME, normalizeTheme } from '../themes';
 
 function applyTheme(theme: string) {
   if (typeof document === 'undefined') return;
@@ -16,18 +12,15 @@ function applyTheme(theme: string) {
 }
 
 export function ThemeDropdown() {
-  const [theme, setTheme] = useState<string>('neutral');
+  const [theme, setTheme] = useState<string>(DEFAULT_THEME);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    let stored: string | null = null;
-    try { stored = localStorage.getItem('theme'); } catch {}
-    if (stored && THEMES.some(t => t.value === stored)) {
-      setTheme(stored);
-      applyTheme(stored);
-    } else {
-      applyTheme('neutral');
-    }
+  let stored: string | null = null;
+  try { stored = localStorage.getItem('theme'); } catch {}
+  const normalized = normalizeTheme(stored) || DEFAULT_THEME;
+  setTheme(normalized);
+  applyTheme(normalized);
     setMounted(true);
   }, []);
 

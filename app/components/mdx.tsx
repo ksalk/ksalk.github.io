@@ -60,7 +60,9 @@ function Code({ children, className, ...props }) {
   if (typeof document !== 'undefined') {
     themeAttr = document.documentElement.dataset.theme || null;
   }
-  const style = themeAttr === 'neutral' ? oneLight : themeAttr === 'osaka' ? dracula : (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? oneLight : dracula);
+  const style = themeAttr === 'light' ? oneLight : themeAttr === 'dark'
+    ? dracula
+    : (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? oneLight : dracula);
   return <Prism style={style} showLineNumbers={true} language={'csharp'} {...props}>{removeLastLine(children)}</Prism>;
 }
 

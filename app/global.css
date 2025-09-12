@@ -54,13 +54,13 @@
   }
 }
 
-/* Explicit theme: neutral (close to system light) */
-[data-theme='neutral'] {
+/* Explicit theme: light */
+[data-theme='light'] {
   color-scheme: light;
 }
 
-/* Explicit theme: osaka (custom dark accent aesthetic) */
-[data-theme='osaka'] {
+/* Explicit theme: dark */
+[data-theme='dark'] {
   --color-bg: #0f1115;
   --color-bg-alt: #181b21;
   --color-fg: #f2f4f8;

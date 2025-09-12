@@ -5,6 +5,7 @@ import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
 import Footer from './components/footer'
 import { baseUrl } from './sitemap'
+import { generateInlineThemeScript } from './themes'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -63,18 +64,15 @@ export default function RootLayout({
     <html
       lang="en"
       className={cx(
-        'bg dark:bg-dark',
         GeistSans.variable,
         GeistMono.variable
       )}
     >
       <head>
         <script
-          // Prevent flash of wrong theme: runs before paint
-          dangerouslySetInnerHTML={{
-            __html: `(()=>{try{const s=localStorage.getItem('theme');if(s)document.documentElement.dataset.theme=s;}catch(e){}})();`
-          }}
-        />
+          // Prevent flash of wrong theme: runs before paint (generated)
+            dangerouslySetInnerHTML={{ __html: generateInlineThemeScript() }}
+          />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
         {/* Favicon font: Ceviche One by Font Diner, licensed under SIL Open Font License 1.1 */}
         <link rel="icon" href="/favicon.ico" />
