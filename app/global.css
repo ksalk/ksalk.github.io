@@ -228,7 +228,7 @@ table {
   color: var(--color-fg);
   text-decoration: underline;
   text-underline-offset: 4px;
-  text-decoration-color: rgba(0,168,107,0.5);
+  text-decoration-color: var(--color-accent);
 }
 [data-theme='osaka'] .main-link:hover,
 [data-theme='osaka'] .main-link:focus-visible {
@@ -237,6 +237,14 @@ table {
   background: transparent;
   outline: none;
 }
+[data-theme='osaka'] .prose a {
+  text-decoration-color: var(--color-accent);
+}
+[data-theme='osaka'] .prose a:hover {
+  text-decoration-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
 /* Remove any pseudo-element remnants (defensive) */
 [data-theme='osaka'] .main-link::after { content: none !important; }
 
