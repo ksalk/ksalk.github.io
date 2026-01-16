@@ -73,9 +73,9 @@ export default function RootLayout({
         {/* Favicon font: Ceviche One by Font Diner, licensed under SIL Open Font License 1.1 */}
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="antialiased max-w-3xl mx-4 mt-8 lg:mx-auto flex flex-col min-h-screen">
+      <body className="antialiased max-w-3xl mx-4 mt-4 lg:mx-auto flex flex-col min-h-screen">
         <Navbar />
-        <main className="flex-1 min-w-0 mt-6 flex flex-col px-2 md:px-0 pt-8">
+        <main className="flex-1 min-w-0 mt-6 flex flex-col px-2 md:px-0">
           {children}
         </main>
         <Footer />

@@ -118,6 +118,11 @@ html {
   }
 }
 
+.header-name {
+  @apply text-2xl font-semibold;
+  color: var(--text-primary);
+}
+
 section p {
   @apply text-justify;
 }

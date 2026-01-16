@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const navItems = {
   '/': {
@@ -13,21 +14,37 @@ const navItems = {
 }
 
 export function Navbar() {
-  const imageData = {
-    src: '/images/me.jpg',
-    title: 'me',
-    width: 80,
-    height: 80,
-  };
-
   return (
-    <aside className="-ml-[8px] mb-4 tracking-tight">
+    <header className="mb-4 tracking-tight">
       <div className="lg:sticky lg:top-20">
+        {/* Row 1: Avatar + Name + Bio */}
+        <div className="flex items-center gap-4 mb-4">
+          <Link href="/">
+            <Image
+              src="/images/me.jpg"
+              alt="Konrad Sałkowski"
+              width={80}
+              height={80}
+              className="rounded-full"
+            />
+          </Link>
+          <div className="flex flex-col">
+            <Link href="/" className="header-name">Konrad Sałkowski</Link>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+              I like to build stuff in dotnet and explore latest tech developments.
+            </p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              Check out my ramblings below.
+            </p>
+          </div>
+        </div>
+
+        {/* Row 2: Navigation + Social Icons */}
         <nav
-          className="flex flex-row items-start relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
+          className="flex flex-row items-center relative px-0 pb-0 -ml-2"
           id="nav"
         >
-          <div className="flex flex-row w-full items-center space-x-0 pr-5">
+          <div className="flex flex-row w-full items-center">
             {Object.entries(navItems).map(([path, { name }]) => {
               return (
                 <Link
@@ -39,14 +56,14 @@ export function Navbar() {
                 </Link>
               )
             })}
-            <div className="ml-auto flex align-middle relative py-1 px-2">
+            <div className="ml-auto flex items-center gap-4">
               <a
                 className="main-link flex items-center"
                 rel="noopener noreferrer"
                 target="_blank"
                 href="https://x.com/KonradSalkowski"
               >
-                <p className="h-7 font-medium text-2xl"><i className="fa-brands fa-x-twitter"></i></p>
+                <span className="text-xl"><i className="fa-brands fa-x-twitter"></i></span>
               </a>
               <a
                 className="main-link flex items-center"
@@ -54,7 +71,7 @@ export function Navbar() {
                 target="_blank"
                 href="https://github.com/ksalk"
               >
-                <p className="ml-4 h-7 font-medium text-2xl"><i className="fa-brands fa-github"></i></p>
+                <span className="text-xl"><i className="fa-brands fa-github"></i></span>
               </a>
               <a
                 className="main-link flex items-center"
@@ -62,12 +79,12 @@ export function Navbar() {
                 target="_blank"
                 href="https://www.linkedin.com/in/konrad-salkowski/"
               >
-                <p className="ml-4 h-7 font-medium text-2xl"><i className="fa-brands fa-linkedin"></i></p>
+                <span className="text-xl"><i className="fa-brands fa-linkedin"></i></span>
               </a>
             </div>
           </div>
         </nav>
       </div>
-    </aside>
+    </header>
   )
 }
