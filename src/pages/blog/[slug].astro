@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import CustomLink from '../../components/mdx/CustomLink.astro';
+import RoundedImage from '../../components/mdx/RoundedImage.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const baseUrl = 'https://ksalk.pl';
+const ogImage = post.data.image ? `${baseUrl}${post.data.image}` : null;
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  datePublished: post.data.publishedAt,
+  dateModified: post.data.publishedAt,
+  description: post.data.summary,
+  image: ogImage,
+  url: `${baseUrl}/blog/${post.slug}`,
+  author: {
+    '@type': 'Person',
+    name: 'Konrad Sałkowski',
+  },
+});
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.summary}
+  publishedTime={post.data.publishedAt}
+  image={ogImage}
+  type="article"
+>
+  <script type="application/ld+json" is:inline set:html={jsonLd} slot="head" />
+
+  <section>
+    <h1 class="title font-semibold text-2xl tracking-tighter">
+      {post.data.title}
+    </h1>
+    <div class="flex justify-between items-center mt-2 mb-8 text-sm">
+      <p class="text-sm text-neutral-600 dark:text-neutral-400">
+        {post.data.publishedAt}
+      </p>
+      <p class="text-sm text-neutral-600 dark:text-neutral-400">
+        {post.data.tags}
+      </p>
+    </div>
+    <article class="prose">
+      <Content components={{ a: CustomLink, img: RoundedImage }} />
+    </article>
+  </section>
+</BaseLayout>

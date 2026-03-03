@@ -1,3 +1,5 @@
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
 @import 'tailwindcss';
 
 ::selection {
@@ -56,12 +58,8 @@
 
 /* Custom classes *********** */
 
-/* ::selection {
-  background: var(--accent-color);
-} */
-
 html {
-  font-family: var(--font-geist-sans);
+  font-family: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
 }
 
 @media (min-width: 799px) {
@@ -176,7 +174,6 @@ html {
 }
 
 .prose img {
-  /* Don't apply styles to next/image */
   @apply m-0;
 }
 

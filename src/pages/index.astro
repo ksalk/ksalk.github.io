@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogPostList from '../components/BlogPostList.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', ({ data }) =>
+  import.meta.env.PROD ? data.draft !== true : true
+);
+const sorted = posts.sort((a, b) =>
+  new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+);
+---
+
+<BaseLayout
+  title="Konrad Sałkowski - devblog"
+  description="ksalk - Konrad Sałkowski's devblog covering .NET, software and IT topics"
+>
+  <section>
+    <div class="mobile flex justify-center mb-4">
+      <img
+        src="/images/me.jpg"
+        alt="me"
+        width="120"
+        height="120"
+        class="nav-image rounded-full"
+      />
+    </div>
+
+    <div class="flex items-center mb-16">
+      <div class="flex-auto">
+        <h1 class="name-title align-middle mb-8">
+          Konrad Sałkowski
+        </h1>
+        <p>I like to build stuff in dotnet and explore latest tech developments.</p>
+        <p>Check out my ramblings below.</p>
+      </div>
+
+      <img
+        src="/images/me.jpg"
+        alt="me"
+        width="120"
+        height="120"
+        class="desktop nav-image flex-none rounded-full mr-5"
+      />
+    </div>
+
+    <div>
+      <BlogPostList posts={sorted} limit={5} />
+    </div>
+  </section>
+</BaseLayout>

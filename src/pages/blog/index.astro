@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPostList from '../../components/BlogPostList.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', ({ data }) =>
+  import.meta.env.PROD ? data.draft !== true : true
+);
+const sorted = posts.sort((a, b) =>
+  new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+);
+---
+
+<BaseLayout title="Blog" description="Read my blog.">
+  <section>
+    <BlogPostList posts={sorted} />
+  </section>
+</BaseLayout>

@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  limit?: number;
+}
+
+const { posts, limit } = Astro.props;
+const displayPosts = limit ? posts.slice(0, limit) : posts;
+---
+
+<div>
+  {displayPosts.map((post) => (
+    <div class="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
+      <a
+        class="flex flex-col space-y-1 mb-8 w-full !no-underline"
+        href={`/blog/${post.slug}`}
+      >
+        <p class="blog-list-title">{post.data.title}</p>
+        <p class="blog-list-desc">{post.data.summary}</p>
+        <p class="blog-list-date">{post.data.publishedAt}</p>
+      </a>
+    </div>
+  ))}
+</div>
