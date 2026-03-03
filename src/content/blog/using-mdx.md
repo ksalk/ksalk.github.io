@@ -1,7 +1,7 @@
 ---
 title: 'Named Query Filters coming with EF Core 10' 
-summary: 'Check out named query filters feature that just got merged into EF Core. More control over your queries!'
-publishedAt: '2025-07-24'
+description: 'Check out named query filters feature that just got merged into EF Core. More control over your queries!'
+pubDate: '2025-07-24'
 tags: '.NET, EntityFramework, DB'
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'Shuffle method added to LINQ in .NET 10'
-summary: 'Simple yet useful shuffle operation added to LINQ in .NET 10.'
-publishedAt: '2025-02-07'
+description: 'Simple yet useful shuffle operation added to LINQ in .NET 10.'
+pubDate: '2025-02-07'
 tags: '.NET, LINQ'
 ---
 

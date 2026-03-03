@@ -1,7 +1,7 @@
 ---
 title: 'Integration testing in .NET with TestContainers'
-summary: 'Reliable suite of integration tests increases the confidence of your code correctness significantly, but making your tests as close to the real-world environment as possible is also a challenge.'
-publishedAt: '2025-02-26'
+description: 'Reliable suite of integration tests increases the confidence of your code correctness significantly, but making your tests as close to the real-world environment as possible is also a challenge.'
+pubDate: '2025-02-26'
 tags: '.NET, Testing, TestContainers'
 ---
 

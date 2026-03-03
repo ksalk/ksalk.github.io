@@ -1,7 +1,7 @@
 ---
 title: 'Strongly typed exceptions in EF Core' 
-summary: 'Upgrade your code with strongly typed EF exceptions for better error handling.'
-publishedAt: '2025-07-20'
+description: 'Upgrade your code with strongly typed EF exceptions for better error handling.'
+pubDate: '2025-07-20'
 tags: '.NET, EntityFramework, DB'
 ---
 
