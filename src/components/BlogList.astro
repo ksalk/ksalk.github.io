@@ -5,10 +5,12 @@ import FormattedDate from './FormattedDate.astro';
 const posts = (await getCollection("blog")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const { title } = Astro.props;
 ---
 
 <section class="blog-list">
-	<h2>Latest Posts</h2>
+	{title && <h2>{title}</h2>}
 	<ul>
 		{posts.map((post) => (
 			<li>
