@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+const posts = (await getCollection("blog")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<section class="blog-list">
+	<h2>Latest Posts</h2>
+	<ul>
+		{posts.map((post) => (
+			<li>
+				<a href={`/blog/${post.id}/`}>
+					<h3>{post.data.title}</h3>
+					<p class="description">{post.data.description}</p>
+					<p class="date"><FormattedDate date={post.data.pubDate} /></p>
+				</a>
+			</li>
+		))}
+	</ul>
+</section>
+
+<style>
+	.blog-list {
+		padding: 2em 0;
+	}
+	.blog-list h2 {
+		margin-bottom: 1em;
+		font-size: 1.8em;
+	}
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		margin-bottom: 0.5em;
+	}
+	li a {
+		display: block;
+		padding: 1em 1.2em;
+		text-decoration: none;
+		color: inherit;
+		border-radius: 8px;
+		transition: background 0.2s ease, box-shadow 0.2s ease;
+	}
+	li a:hover {
+		background: rgba(var(--gray-light), 50%);
+		box-shadow: var(--box-shadow);
+	}
+	li a h3 {
+		margin: 0 0 0.3em;
+		font-size: 1.2em;
+		color: rgb(var(--black));
+	}
+	.description {
+		margin: 0 0 0.3em;
+		color: rgb(var(--gray));
+		font-size: 0.9em;
+	}
+	.date {
+		margin: 0;
+		color: rgb(var(--gray));
+		font-size: 0.85em;
+	}
+	li a:hover h3 {
+		color: var(--accent);
+	}
+</style>

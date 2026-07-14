@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+---
+
+<section class="hero">
+	<div class="hero-content">
+		<Image src="/me.jpg" alt="Konrad Sałkowski" width={200} height={200} class="profile-photo" />
+		<div class="hero-text">
+			<h1>Hi, I'm <span class="highlight">@ksalk</span></h1>
+			<p class="subtitle">.NET backend developer with a passion for cloud, AI, and software architecture. Real-world engineering challenges, useful tools, and ideas explored along the way.</p>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		width: 100vw;
+		margin-left: calc(-50vw + 50%);
+		margin-top: -3em;
+		padding: 4em 0 3em;
+		background: rgba(var(--gray-light), 30%);
+	}
+	.hero-content {
+		width: 720px;
+		max-width: calc(100% - 2em);
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		gap: 3em;
+	}
+	.profile-photo {
+		border-radius: 50%;
+		width: 200px;
+		height: 200px;
+		object-fit: cover;
+		flex-shrink: 0;
+	}
+	.hero-text h1 {
+		margin: 0 0 0.5em;
+		font-size: 2.5em;
+		line-height: 1.2;
+	}
+	.highlight {
+		color: var(--accent);
+	}
+	.tagline {
+		font-size: 1.2em;
+		color: rgb(var(--gray));
+		margin: 0 0 0.3em;
+		line-height: 1.5;
+	}
+	.subtitle {
+		font-size: 1em;
+		color: rgb(var(--gray));
+		margin: 0;
+		line-height: 1.5;
+	}
+	@media (max-width: 720px) {
+		.hero {
+			padding: 2em 0;
+		}
+		.hero-content {
+			flex-direction: column;
+			text-align: center;
+			gap: 1.5em;
+		}
+		.profile-photo {
+			width: 150px;
+			height: 150px;
+		}
+		.hero-text h1 {
+			font-size: 2em;
+		}
+	}
+</style>
