@@ -50,7 +50,7 @@ import { Image } from 'astro:assets';
 		background: rgba(var(--gray-light), 30%);
 	}
 	.hero-content {
-		width: 720px;
+		width: var(--page-width);
 		max-width: calc(100% - 2em);
 		margin: 0 auto;
 		display: flex;
@@ -95,7 +95,7 @@ import { Image } from 'astro:assets';
 	.social-links a:hover {
 		color: rgb(var(--gray-dark));
 	}
-	@media (max-width: 720px) {
+	@media (max-width: 768px) {
 		.hero {
 			padding: 2em 0;
 		}
