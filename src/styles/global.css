@@ -8,28 +8,28 @@
 	/* Primary accent: links, active nav indicator, blockquote border */
 	--color-accent: #2337ff;
 	/* Headings and high-emphasis text (RGB channels) */
-	--color-heading: 15, 18, 25;
+	--color-heading: #0F1219;
 	/* Secondary / muted text: dates, footer, descriptions (RGB channels) */
-	--color-text-secondary: 96, 115, 159;
+	--color-text-secondary: #60739F;
 	/* Surface / background: code blocks, hero, horizontal rules (RGB channels) */
-	--color-surface: 229, 233, 240;
+	--color-surface: #E5E9F0;
 	/* Body text (RGB channels) */
-	--color-text: 34, 41, 57;
+	--color-text: #222939;
 	/* Page and footer gradient background */
-	--color-gradient: rgba(var(--color-surface), 50%), #fff;
+	--color-gradient: rgb(from var(--color-surface) r g b / 0.50), #fff;
 	/* Max content width */
 	--page-width: 768px;
 	/* Card and image shadow */
 	--box-shadow:
-		0 2px 6px rgba(var(--color-text-secondary), 25%), 0 8px 24px rgba(var(--color-text-secondary), 33%), 0 16px 32px
-		rgba(var(--color-text-secondary), 33%);
+		0 2px 6px rgb(from var(--color-text-secondary) r g b / 0.25), 0 8px 24px rgb(from var(--color-text-secondary) r g b / 0.33), 0 16px 32px
+		rgb(from var(--color-text-secondary) r g b / 0.33);
 }
 html.dark {
-	--color-heading: 240, 240, 245;
-	--color-text-secondary: 140, 155, 195;
-	--color-surface: 34, 41, 57;
-	--color-text: 229, 233, 240;
-	--color-gradient: rgba(var(--color-surface), 50%), #1a1a2e;
+	--color-heading: #F0F0F5;
+	--color-text-secondary: #8C9BC3;
+	--color-surface: #222939;
+	--color-text: #E5E9F0;
+	--color-gradient: rgb(from var(--color-surface) r g b / 0.50), #1a1a2e;
 	color-scheme: dark;
 }
 @font-face {
@@ -61,7 +61,7 @@ body {
 	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--color-text));
+	color: var(--color-text);
 	font-size: 20px;
 	line-height: 1.7;
 }
@@ -78,7 +78,7 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: rgb(var(--color-heading));
+	color: var(--color-heading);
 	line-height: 1.2;
 }
 h1 {
@@ -129,7 +129,7 @@ img {
 }
 code {
 	padding: 2px 5px;
-	background-color: rgb(var(--color-surface));
+	background-color: var(--color-surface);
 	border-radius: 2px;
 	font-family: "Geist Mono", monospace;
 }
@@ -149,7 +149,7 @@ blockquote {
 }
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--color-surface));
+	border-top: 1px solid var(--color-surface);
 }
 @media (max-width: 768px) {
 	body {

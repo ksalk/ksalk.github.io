@@ -47,7 +47,7 @@ import { Image } from 'astro:assets';
 		margin-left: calc(-50vw + 50%);
 		margin-top: -3em;
 		padding: 2em 0 2em;
-		background: rgba(var(--color-surface), 30%);
+		background: rgb(from var(--color-surface) r g b / 0.30);
 	}
 	.hero-content {
 		width: var(--page-width);
@@ -74,7 +74,7 @@ import { Image } from 'astro:assets';
 	}
 	.subtitle {
 		font-size: 0.9em;
-		color: rgb(var(--color-text-secondary));
+		color: var(--color-text-secondary);
 		margin: 0 0 1em;
 		line-height: 1.5;
 	}
@@ -85,10 +85,10 @@ import { Image } from 'astro:assets';
 	}
 	.social-links a {
 		text-decoration: none;
-		color: rgb(var(--color-text-secondary));
+		color: var(--color-text-secondary);
 	}
 	.social-links a:hover {
-		color: rgb(var(--color-text));
+		color: var(--color-text);
 	}
 	@media (max-width: 768px) {
 		.hero {

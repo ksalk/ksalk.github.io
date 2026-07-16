@@ -32,7 +32,7 @@ import HeaderLink from './HeaderLink.astro';
 		margin: 0;
 		padding: 0 1em;
 		background: white;
-		box-shadow: 0 2px 8px rgba(var(--color-heading), 5%);
+		box-shadow: 0 2px 8px rgb(from var(--color-heading) r g b / 0.05);
 	}
 	h2 {
 		margin: 0;
@@ -53,7 +53,7 @@ import HeaderLink from './HeaderLink.astro';
 	}
 	nav a {
 		padding: 1em 1em;
-		color: rgb(var(--color-heading));
+		color: var(--color-heading);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
 	}
@@ -70,7 +70,7 @@ import HeaderLink from './HeaderLink.astro';
 		border: none;
 		cursor: pointer;
 		padding: 1em 0.5em;
-		color: rgb(var(--color-heading));
+		color: var(--color-heading);
 		display: flex;
 		align-items: center;
 		transform: translateY(-1px);
@@ -88,7 +88,7 @@ import HeaderLink from './HeaderLink.astro';
 		display: none;
 	}
 	:global(html.dark) header {
-		background: rgb(var(--color-surface));
+		background: var(--color-surface);
 		box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 	}
 </style>
