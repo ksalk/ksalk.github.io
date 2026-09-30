@@ -8,4 +8,10 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
 	site: 'https://ksalk.pl',
 	integrations: [mdx(), sitemap()],
+	markdown: {
+		shikiConfig: {
+			// github-light ships a #fff background, so pre needs its own border
+			theme: 'github-light',
+		},
+	},
 });

@@ -128,11 +128,23 @@ code {
 	background-color: var(--color-surface);
 	border-radius: 2px;
 	font-family: "Geist Mono", monospace;
+	font-size: var(--text-md);
 }
 pre {
-	padding: 1.5em;
+	/* Reset margins so code blocks don't inherit the loose prose rhythm */
+	margin: 1.5em 0;
+	padding: 1.25em;
+	/* Keep the 8px radius on the scroll container, not on the text inside */
+	overflow: hidden;
+	border: 1px solid var(--color-surface);
 	border-radius: 8px;
 	font-family: "Geist Mono", monospace;
+	/* Code is denser than body copy; don't inherit 20px / 1.7 */
+	font-size: var(--text-md);
+	line-height: 1.6;
+	/* Long lines scroll rather than wrapping mid-token */
+	overflow-x: auto;
+	tab-size: 4;
 }
 pre > code {
 	all: unset;
