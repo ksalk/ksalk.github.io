@@ -15,7 +15,7 @@
 	--color-surface: #E5E9F0;
 	/* Body text (RGB channels) */
 	--color-text: #222939;
-	/* Page and footer gradient background */
+	/* Page gradient background */
 	--color-gradient: rgb(from var(--color-surface) r g b / 0.50), #fff;
 	/* Max content width */
 	--page-width: 768px;
