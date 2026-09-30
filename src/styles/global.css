@@ -18,6 +18,15 @@
 	--color-accent: #2337ff;
 	/* Max content width */
 	--page-width: 768px;
+
+	/* Text size scale (rem-based so nested overrides don't compound) */
+	--text-xs: 0.75rem; /* 12px */
+	--text-sm: 0.875rem; /* 14px */
+	--text-md: 1rem; /* 16px */
+	--text-base: 1.25rem; /* 20px */
+	--text-lg: 1.5rem; /* 24px */
+	--text-xl: 2rem; /* 32px */
+	--text-2xl: 2.5rem; /* 40px */
 }
 @font-face {
 	font-family: 'Geist Sans';
@@ -49,7 +58,7 @@ body {
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: var(--color-text);
-	font-size: 20px;
+	font-size: var(--text-base);
 	line-height: 1.7;
 }
 main {
@@ -69,19 +78,18 @@ h6 {
 	line-height: 1.2;
 }
 h1 {
-	font-size: 3.052em;
+	font-size: var(--text-2xl);
 }
 h2 {
-	font-size: 2.441em;
+	font-size: var(--text-lg);
 }
 h3 {
-	font-size: 1.953em;
+	font-size: var(--text-base);
 }
-h4 {
-	font-size: 1.563em;
-}
-h5 {
-	font-size: 1.25em;
+h4,
+h5,
+h6 {
+	font-size: var(--text-md);
 }
 strong,
 b {
@@ -102,10 +110,10 @@ p {
 }
 textarea {
 	width: 100%;
-	font-size: 16px;
+	font-size: var(--text-md);
 }
 input {
-	font-size: 16px;
+	font-size: var(--text-md);
 }
 table {
 	width: 100%;
@@ -133,15 +141,15 @@ blockquote {
 	border-left: 4px solid var(--color-accent);
 	padding: 0 0 0 20px;
 	margin: 0;
-	font-size: 1.333em;
+	font-size: 1.1em;
 }
 hr {
 	border: none;
 	border-top: 1px solid var(--color-surface);
 }
 @media (max-width: 768px) {
-	body {
-		font-size: 18px;
+	:root {
+		--text-base: 1.125rem;
 	}
 	main {
 		padding: 1em;
