@@ -17,7 +17,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		display: block;
 		margin: 0 auto;
 		border-radius: 12px;
-		box-shadow: var(--box-shadow);
+		box-shadow:
+			0 2px 6px rgb(from var(--color-text-secondary) r g b / 0.25), 0 8px 24px rgb(from var(--color-text-secondary) r g b / 0.33), 0 16px 32px
+			rgb(from var(--color-text-secondary) r g b / 0.33);
 	}
 	.prose {
 		width: var(--page-width);

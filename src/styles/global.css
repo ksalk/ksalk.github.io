@@ -16,14 +16,8 @@
 	--color-surface: #E5E9F0;
 	/* Body text (RGB channels) */
 	--color-text: #222939;
-	/* Page gradient background */
-	--color-gradient: rgb(from var(--color-surface) r g b / 0.50), #fff;
 	/* Max content width */
 	--page-width: 768px;
-	/* Card and image shadow */
-	--box-shadow:
-		0 2px 6px rgb(from var(--color-text-secondary) r g b / 0.25), 0 8px 24px rgb(from var(--color-text-secondary) r g b / 0.33), 0 16px 32px
-		rgb(from var(--color-text-secondary) r g b / 0.33);
 }
 @font-face {
 	font-family: 'Geist Sans';
