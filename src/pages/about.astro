@@ -3,7 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 ---
 
-<Layout>
+<Layout
+	title="About"
+	description="Konrad Sałkowski is a .NET developer based in Warsaw, Poland, working on APIs, backend systems, cloud and AI."
+>
+	<h1>About</h1>
 	<Image src="/me.jpg" alt="Konrad Sałkowski" width={200} height={200} class="profile-photo" />
 
 	<p>
