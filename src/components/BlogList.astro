@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
+import { readingTime } from '../utils/blog';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -8,53 +9,89 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 ---
 
 <section class="blog-list">
-	<ul>
-		{posts.map((post) => (
-			<li>
-				<a href={`/blog/${post.id}/`}>
-					<h3>{post.data.title}</h3>
-					<p class="date"><FormattedDate date={post.data.pubDate} /></p>
-					<p class="description">{post.data.description}</p>
-				</a>
-			</li>
-		))}
+	<ul class="posts">
+		{
+			posts.map((post) => (
+				<li>
+					<a href={`/blog/${post.id}/`}>
+						<h3>{post.data.title}</h3>
+						<p class="meta">
+							<FormattedDate date={post.data.pubDate} />
+							<span aria-hidden="true">·</span>
+							<span>{readingTime(post.body)} min read</span>
+						</p>
+						<p class="description">{post.data.description}</p>
+						{post.data.tags.length > 0 && (
+							<ul class="tags">
+								{post.data.tags.map((tag) => (
+									<li>{tag}</li>
+								))}
+							</ul>
+						)}
+					</a>
+				</li>
+			))
+		}
 	</ul>
 </section>
 
 <style>
-	.blog-list {
-		padding: 1em 0;
-	}
-	ul {
+	.posts {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 	}
-	li {
-		margin-bottom: 0.5em;
+	.posts > li {
+		border-top: 1px solid var(--color-surface);
 	}
-	li a {
+	.posts > li > a {
 		display: block;
-		padding: 1em 0;
+		margin: 0 -1em;
+		padding: 1.5em 1em;
 		text-decoration: none;
 		color: inherit;
+		transition: background-color 0.15s ease;
 	}
-	li a h3 {
+	.posts h3 {
 		margin: 0 0 0.3em;
 		font-size: var(--text-lg);
 		color: var(--color-text);
+		transition: color 0.15s ease;
 	}
-	li a:hover h3 {
+	.posts > li > a:hover {
+		background-color: rgb(from var(--color-surface) r g b / 0.45);
+	}
+	.posts > li > a:hover h3 {
 		color: var(--color-accent);
 	}
+	.posts > li > a:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: -2px;
+		border-radius: 4px;
+	}
 	.description {
-		margin: 0 0 0.3em;
+		margin: 0;
 		color: var(--color-text-muted);
 		font-size: var(--text-md);
 	}
-	.date {
-		margin: 0;
+	.meta {
+		display: flex;
+		gap: 0.5em;
+		margin: 0 0 0.5em;
 		color: var(--color-text-muted);
 		font-size: var(--text-sm);
+	}
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em;
+		margin: 0.75em 0 0;
+	}
+	.tags li {
+		padding: 0.15em 0.6em;
+		border-radius: 999px;
+		background-color: var(--color-surface);
+		color: var(--color-text-muted);
+		font-size: var(--text-xs);
 	}
 </style>
