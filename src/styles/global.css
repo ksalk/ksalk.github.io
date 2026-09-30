@@ -104,7 +104,8 @@ a {
 	color: var(--color-accent);
 }
 a:hover {
-	color: var(--color-accent);
+	text-decoration: underline;
+	text-underline-offset: 2px;
 }
 p {
 	margin-bottom: 1em;
