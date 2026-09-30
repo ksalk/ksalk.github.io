@@ -6,16 +6,16 @@
 
 :root {
 	color-scheme: light;
+	/* Page background */
+	--color-bg: #fff;
+	/* Body text and headings */
+	--color-text: #222939;
+	/* Muted text: dates, descriptions, footer, secondary content */
+	--color-text-muted: #60739F;
+	/* Tinted surface: code chips, borders, hover wash */
+	--color-surface: #E5E9F0;
 	/* Primary accent: links, active nav indicator, blockquote border */
 	--color-accent: #2337ff;
-	/* Headings and high-emphasis text (RGB channels) */
-	--color-heading: #0F1219;
-	/* Secondary / muted text: dates, footer, descriptions (RGB channels) */
-	--color-text-secondary: #60739F;
-	/* Surface / background: code blocks, hero, horizontal rules (RGB channels) */
-	--color-surface: #E5E9F0;
-	/* Body text (RGB channels) */
-	--color-text: #222939;
 	/* Max content width */
 	--page-width: 768px;
 }
@@ -45,7 +45,7 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background-size: 100% 600px;
+	background: var(--color-bg);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: var(--color-text);
@@ -65,7 +65,7 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: var(--color-heading);
+	color: var(--color-text);
 	line-height: 1.2;
 }
 h1 {
