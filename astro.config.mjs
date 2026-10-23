@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import { unified } from '@astrojs/markdown-remark';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
@@ -12,6 +13,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   markdown: {
+    processor: unified(),
     shikiConfig: {
       theme: 'dracula',
       wrap: false,

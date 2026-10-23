@@ -7,7 +7,7 @@ import RoundedImage from '../../components/mdx/RoundedImage.astro';
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 }
@@ -26,7 +26,7 @@ const jsonLd = JSON.stringify({
   dateModified: post.data.publishedAt,
   description: post.data.summary,
   image: ogImage,
-  url: `${baseUrl}/blog/${post.slug}`,
+  url: `${baseUrl}/blog/${post.id}`,
   author: {
     '@type': 'Person',
     name: 'Konrad Sałkowski',
