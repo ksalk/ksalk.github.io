@@ -86,12 +86,33 @@ code, kbd, pre, samp {
   @apply text-3xl font-bold;
 }
 
-.prose code {
+/* Inline code chips - kept out of <pre> blocks so Shiki owns their styling */
+.prose :not(pre) > code {
   @apply px-1.5 py-1 rounded-lg;
   /* Dracula background - tied to the Shiki theme, not themable */
   background-color: #282a36;
   color: white;
 }
+
+.prose pre {
+  @apply rounded-lg p-4 text-sm;
+  position: relative;
+  line-height: 1.5;
+}
+
+/* pre blocks are keyboard scrollable (tabindex=0) - show where focus is */
+.prose pre:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Language badge in the top-right corner */
+/* .prose pre[data-language]::after {
+  content: attr(data-language);
+  @apply absolute right-3 top-2 text-xs font-medium uppercase tracking-wider;
+  color: #7b7f8b;
+  pointer-events: none;
+} */
 
 /* Custom classes end *********** */
 
@@ -124,12 +145,6 @@ html {
 
 .prose *:hover > .anchor {
   @apply visible;
-}
-
-.prose pre code {
-  @apply p-0;
-  border: initial;
-  line-height: 1.5;
 }
 
 .prose code span {
