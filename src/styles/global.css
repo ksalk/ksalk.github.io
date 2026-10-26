@@ -53,18 +53,6 @@ code, kbd, pre, samp {
   font-family: 'Geist Mono Variable', ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
 }
 
-@media (min-width: 799px) {
-  .mobile {
-    display: none;
-  }
-}
-
-@media (max-width: 799px) {
-  .desktop {
-    display: none;
-  }
-}
-
 /* Custom classes */
 
 .main-link {
@@ -95,19 +83,7 @@ code, kbd, pre, samp {
 }
 
 .name-title {
-  @apply  text-3xl font-bold;
-
-  @media (max-width: 799px) {
-      @apply text-center;
-  }
-}
-
-section p {
-  @apply text-justify;
-}
-
-section a {
-  @apply font-bold underline;
+  @apply text-3xl font-bold;
 }
 
 .prose code {
@@ -165,7 +141,7 @@ html {
 }
 
 .prose p {
-  @apply my-4;
+  @apply my-4 text-justify;
 }
 
 .prose h1 {

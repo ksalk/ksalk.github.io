@@ -16,7 +16,7 @@ const sorted = posts.sort((a, b) =>
   description="ksalk - Konrad Sałkowski's devblog covering .NET, software and IT topics"
 >
   <section>
-    <div class="mobile flex justify-center mb-4">
+    <div class="flex justify-center mb-4 md:hidden">
       <img
         src="/images/me.jpg"
         alt="me"
@@ -28,7 +28,7 @@ const sorted = posts.sort((a, b) =>
 
     <div class="flex items-center mb-16">
       <div class="flex-auto">
-        <h1 class="name-title align-middle mb-8">
+        <h1 class="name-title align-middle mb-8 text-center md:text-left">
           Konrad Sałkowski
         </h1>
         <p>I like to build stuff in dotnet and explore latest tech developments.</p>
@@ -40,7 +40,7 @@ const sorted = posts.sort((a, b) =>
         alt="me"
         width="120"
         height="120"
-        class="desktop flex-none rounded-full mr-5"
+        class="hidden md:block flex-none rounded-full mr-5"
       />
     </div>
 
