@@ -5,7 +5,9 @@ import CustomLink from '../../components/mdx/CustomLink.astro';
 import RoundedImage from '../../components/mdx/RoundedImage.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('blog', ({ data }) =>
+    import.meta.env.PROD ? data.draft !== true : true
+  );
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { post },
@@ -44,16 +46,12 @@ const jsonLd = JSON.stringify({
   <script type="application/ld+json" is:inline set:html={jsonLd} slot="head" />
 
   <section>
-    <h1 class="title font-semibold text-2xl tracking-tighter">
+    <h1 class="title text-4xl font-semibold tracking-tighter">
       {post.data.title}
     </h1>
     <div class="flex justify-between items-center mt-2 mb-8 text-sm text-text-muted">
-      <p>
-        {post.data.publishedAt}
-      </p>
-      <p>
-        {post.data.tags}
-      </p>
+      <time datetime={post.data.publishedAt}>{post.data.publishedAt}</time>
+      <p>{post.data.tags}</p>
     </div>
     <article class="prose">
       <Content components={{ a: CustomLink, img: RoundedImage }} />
