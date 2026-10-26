@@ -121,30 +121,29 @@ html {
 }
 
 .prose .anchor {
-  @apply absolute invisible no-underline;
+  /* Keep the link focusable - only the # glyph is visually toggled
+     (elements with visibility:hidden are skipped by tab order) */
+  @apply absolute no-underline;
 
   margin-left: -1em;
   padding-right: 0.5em;
-  width: 80%;
-  max-width: 700px;
   cursor: pointer;
-}
-
-.anchor:hover {
-  @apply visible;
-}
-
-.prose a {
-  @apply underline transition-all underline-offset-2 decoration-[0.1em];
 }
 
 .prose .anchor:after {
   @apply text-neutral-300 dark:text-neutral-700;
   content: '#';
+  opacity: 0;
+  transition: opacity 0.15s ease;
 }
 
-.prose *:hover > .anchor {
-  @apply visible;
+.prose *:hover > .anchor:after,
+.prose .anchor:focus:after {
+  opacity: 1;
+}
+
+.prose a {
+  @apply underline transition-all underline-offset-2 decoration-[0.1em];
 }
 
 .prose code span {
